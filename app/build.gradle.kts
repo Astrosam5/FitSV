@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "projet.mobile.kotlin.fitsv"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "projet.mobile.kotlin.fitsv"
