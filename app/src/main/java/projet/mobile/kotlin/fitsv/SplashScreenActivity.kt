@@ -2,7 +2,7 @@
  * Code made for course 8INF865 at UQAC
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
-package projet.mobile.kotlin.fitsv.ui
+package projet.mobile.kotlin.fitsv
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.delay
-import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.ui.theme.FitSVTheme
 import kotlin.time.Duration.Companion.seconds
 

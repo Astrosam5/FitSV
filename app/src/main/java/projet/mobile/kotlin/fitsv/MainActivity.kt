@@ -3,7 +3,7 @@
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
 
-package projet.mobile.kotlin.fitsv.ui
+package projet.mobile.kotlin.fitsv
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import projet.mobile.kotlin.fitsv.ui.MainScreen
 import projet.mobile.kotlin.fitsv.ui.theme.BottomNavBarDemoTheme
 import projet.mobile.kotlin.fitsv.ui.theme.FitSVTheme
 
