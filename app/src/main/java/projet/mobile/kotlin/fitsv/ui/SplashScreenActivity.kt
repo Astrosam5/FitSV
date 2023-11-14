@@ -4,6 +4,7 @@
  */
 package projet.mobile.kotlin.fitsv.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -31,6 +32,7 @@ import kotlin.time.Duration.Companion.seconds
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */
+@SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : ComponentActivity() {
 
     /**
