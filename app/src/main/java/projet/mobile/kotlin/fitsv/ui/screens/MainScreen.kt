@@ -2,7 +2,7 @@
  * Code made for course 8INF865 at UQAC
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
-package projet.mobile.kotlin.fitsv.ui
+package projet.mobile.kotlin.fitsv.ui.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.RowScope
@@ -19,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.wear.compose.material.ContentAlpha
 
 
@@ -32,7 +34,22 @@ fun MainScreen() {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
-        BottomNavGraph(navController = navController)
+
+        // Nav Bar route
+        NavHost(
+            navController = navController,
+            startDestination = BottomBarScreen.Home.route
+        ) {
+            composable(route = BottomBarScreen.Home.route) {
+                HomeScreen()
+            }
+            composable(route = BottomBarScreen.Programs.route) {
+                ProgramsScreen()
+            }
+            composable(route = BottomBarScreen.Settings.route) {
+                SettingsScreen()
+            }
+        }
     }
 }
 
