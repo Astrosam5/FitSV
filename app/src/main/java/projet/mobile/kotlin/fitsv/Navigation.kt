@@ -2,7 +2,7 @@
  * Code made for course 8INF865 at UQAC
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
-package projet.mobile.kotlin.fitsv.ui.screens
+package projet.mobile.kotlin.fitsv
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ColumnScope
@@ -23,16 +23,22 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.wear.compose.material.ContentAlpha
+import projet.mobile.kotlin.fitsv.ui.screens.login.LoginScreen
+import projet.mobile.kotlin.fitsv.ui.screens.login.SingUpScreen
 import projet.mobile.kotlin.fitsv.ui.WindowSize
 import projet.mobile.kotlin.fitsv.ui.WindowType
+import projet.mobile.kotlin.fitsv.ui.screens.BottomBarScreen
+import projet.mobile.kotlin.fitsv.ui.screens.HomeScreen
+import projet.mobile.kotlin.fitsv.ui.screens.ProgramsScreen
+import projet.mobile.kotlin.fitsv.ui.screens.SettingsScreen
 
 
 /**
- * Function used to setup elements on the MainScreen
+ * Function used to setup the navigation
  */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(windowSize: WindowSize) {
+fun Navigation(windowSize: WindowSize) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -45,9 +51,6 @@ fun MainScreen(windowSize: WindowSize) {
                 }
                 WindowType.Expanded -> {
                     NavigationRailBar(navController = navController)
-                }
-                else -> {
-                    throw IllegalArgumentException("Dp value cannot be negative")
                 }
             }
         }
@@ -65,7 +68,16 @@ fun MainScreen(windowSize: WindowSize) {
                 ProgramsScreen(windowSize = windowSize)
             }
             composable(route = BottomBarScreen.Settings.route) {
-                SettingsScreen(windowSize = windowSize)
+                SettingsScreen(
+                    windowSize = windowSize,
+                    onNavigateToLogin = { navController.navigate("login")}
+                )
+            }
+            composable(route="login") {
+                LoginScreen(onNavigateToSingUp = {navController.navigate("sing_up")})
+            }
+            composable(route = "sing_up") {
+                SingUpScreen()
             }
         }
     }

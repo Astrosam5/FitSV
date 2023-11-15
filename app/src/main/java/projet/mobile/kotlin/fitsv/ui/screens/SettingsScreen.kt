@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import projet.mobile.kotlin.fitsv.ui.WindowSize
 import projet.mobile.kotlin.fitsv.ui.WindowType
 import projet.mobile.kotlin.fitsv.ui.rememberWindowSize
@@ -24,8 +27,10 @@ import projet.mobile.kotlin.fitsv.ui.rememberWindowSize
  * Function used to define UI of the SettingsScreen
  */
 @Composable
-fun SettingsScreen(windowSize: WindowSize) {
-
+fun SettingsScreen(
+    windowSize: WindowSize,
+    onNavigateToLogin: () -> Unit
+) {
     when (windowSize.width) {
         WindowType.Compact -> {
             Column {
@@ -35,12 +40,17 @@ fun SettingsScreen(windowSize: WindowSize) {
                         .background(Color.White),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "SETTINGS",
-                        fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
+                    Column {
+                        Button(onClick = onNavigateToLogin) {
+                            Text(text = "Login")
+                        }
+                        Text(
+                            text = "SETTINGS",
+                            fontSize = MaterialTheme.typography.displayMedium.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                    }
                 }
             }
         }
@@ -52,12 +62,17 @@ fun SettingsScreen(windowSize: WindowSize) {
                         .background(Color.Black),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "SETTINGS",
-                        fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Red
-                    )
+                    Column {
+                        Button(onClick = onNavigateToLogin) {
+                            Text(text = "Login")
+                        }
+                        Text(
+                            text = "SETTINGS",
+                            fontSize = MaterialTheme.typography.displayMedium.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Red
+                        )
+                    }
                 }
             }
         }
@@ -69,17 +84,19 @@ fun SettingsScreen(windowSize: WindowSize) {
                         .background(Color.Yellow),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "SETTINGS",
-                        fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Blue
-                    )
+                    Column {
+                        Button(onClick = onNavigateToLogin) {
+                            Text(text = "Login")
+                        }
+                        Text(
+                            text = "SETTINGS",
+                            fontSize = MaterialTheme.typography.displayMedium.fontSize,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Blue
+                        )
+                    }
                 }
             }
-        }
-        else -> {
-            throw IllegalArgumentException("Dp value cannot be negative")
         }
     }
 
@@ -92,5 +109,10 @@ fun SettingsScreen(windowSize: WindowSize) {
 @Composable
 @Preview
 fun SettingsScreenPreview(windowSize: WindowSize = rememberWindowSize()) {
-    SettingsScreen(windowSize = windowSize)
+    val navController: NavHostController = rememberNavController()
+
+    SettingsScreen(
+        windowSize = windowSize,
+        onNavigateToLogin = { navController.navigate("login")}
+    )
 }

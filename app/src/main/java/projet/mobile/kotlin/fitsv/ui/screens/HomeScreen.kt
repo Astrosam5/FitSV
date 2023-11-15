@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import projet.mobile.kotlin.fitsv.ui.WindowSize
 import projet.mobile.kotlin.fitsv.ui.WindowType
 import projet.mobile.kotlin.fitsv.ui.rememberWindowSize
@@ -83,9 +82,6 @@ fun HomeScreen(windowSize: WindowSize) {
                     )
                 }
             }
-        }
-        else -> {
-            throw IllegalArgumentException("Dp value cannot be negative")
         }
     }
 

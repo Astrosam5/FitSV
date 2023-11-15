@@ -6,6 +6,8 @@ package projet.mobile.kotlin.fitsv.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import projet.mobile.kotlin.fitsv.domain.repository.UserRepository
+import javax.inject.Inject
 
 /**
  * Class LoginViewModel
@@ -14,5 +16,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
  * @author Valentin Ayroles
  */
 @HiltViewModel
-class LoginViewModel : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val userRepository: UserRepository
+) : ViewModel() {
+
+
 }

@@ -2,7 +2,7 @@
  * Code made for course 8INF865 at UQAC
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
-package projet.mobile.kotlin.fitsv.utils
+package projet.mobile.kotlin.fitsv
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
@@ -16,4 +16,5 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class FitSVApplication : Application() {
+    // TODO nav
 }
