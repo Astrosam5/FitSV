@@ -5,6 +5,7 @@
 package projet.mobile.kotlin.fitsv.ui.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -22,6 +23,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.wear.compose.material.ContentAlpha
+import projet.mobile.kotlin.fitsv.ui.WindowSize
+import projet.mobile.kotlin.fitsv.ui.WindowType
 
 
 /**
@@ -29,10 +32,25 @@ import androidx.wear.compose.material.ContentAlpha
  */
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun MainScreen(windowSize: WindowSize) {
     val navController = rememberNavController()
     Scaffold(
-        bottomBar = { BottomBar(navController = navController) }
+        bottomBar = {
+            when (windowSize.width) {
+                WindowType.Compact -> {
+                    BottomBar(navController = navController)
+                }
+                WindowType.Medium -> {
+                    NavigationRailBar(navController = navController)
+                }
+                WindowType.Expanded -> {
+                    NavigationRailBar(navController = navController)
+                }
+                else -> {
+                    throw IllegalArgumentException("Dp value cannot be negative")
+                }
+            }
+        }
     ) {
 
         // Nav Bar route
@@ -41,13 +59,13 @@ fun MainScreen() {
             startDestination = BottomBarScreen.Home.route
         ) {
             composable(route = BottomBarScreen.Home.route) {
-                HomeScreen()
+                HomeScreen(windowSize = windowSize)
             }
             composable(route = BottomBarScreen.Programs.route) {
-                ProgramsScreen()
+                ProgramsScreen(windowSize = windowSize)
             }
             composable(route = BottomBarScreen.Settings.route) {
-                SettingsScreen()
+                SettingsScreen(windowSize = windowSize)
             }
         }
     }
@@ -78,6 +96,31 @@ fun BottomBar(navController: NavHostController) {
     }
 }
 
+/**
+ * Function used to setup elements on the Navigation rail on the screen
+ * @param navController: NavHostController used for navigation
+ */
+@Composable
+fun NavigationRailBar(navController: NavHostController) {
+    val screens = listOf(
+        BottomBarScreen.Home,
+        BottomBarScreen.Programs,
+        BottomBarScreen.Settings,
+    )
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    NavigationRail {
+        screens.forEach { screen ->
+            AddItem(
+                screen = screen,
+                currentDestination = currentDestination,
+                navController = navController
+            )
+        }
+    }
+}
+
 
 /**
  * Function used to add items to the BottomBar
@@ -92,6 +135,41 @@ fun RowScope.AddItem(
     navController: NavHostController
 ) {
     BottomNavigationItem(
+        label = {
+            Text(text = screen.title)
+        },
+        icon = {
+            Icon(
+                imageVector = screen.icon,
+                contentDescription = "Navigation Icon"
+            )
+        },
+        selected = currentDestination?.hierarchy?.any {
+            it.route == screen.route
+        } == true,
+        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
+        onClick = {
+            navController.navigate(screen.route) {
+                popUpTo(navController.graph.findStartDestination().id)
+                launchSingleTop = true
+            }
+        }
+    )
+}
+
+/**
+ * Function used to add items to the BottomBar
+ * @param screen: to add item
+ * @param currentDestination: current location
+ * @param navController: NavHostController used for navigation
+ */
+@Composable
+fun ColumnScope.AddItem(
+    screen: BottomBarScreen,
+    currentDestination: NavDestination?,
+    navController: NavHostController
+) {
+    NavigationRailItem(
         label = {
             Text(text = screen.title)
         },
