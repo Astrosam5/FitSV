@@ -30,7 +30,7 @@ object UserModule {
     @Provides
     @Named("BASE_URL")
     fun getBaseUrl(): String{
-        return "https://dezdez" // TODO Replace by real url
+        return "mongodb://localhost:27017"
     }
 
 

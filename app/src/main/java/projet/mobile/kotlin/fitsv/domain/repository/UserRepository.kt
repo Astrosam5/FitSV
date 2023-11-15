@@ -4,6 +4,8 @@
  */
 package projet.mobile.kotlin.fitsv.domain.repository
 
+import projet.mobile.kotlin.fitsv.data.User
+
 /**
  * Interface MyRepository
  * TODO Comment use case of interface MyRepository
@@ -11,5 +13,13 @@ package projet.mobile.kotlin.fitsv.domain.repository
  * @author Valentin Ayroles
  */
 interface UserRepository {
-    suspend fun doNetworkCall()
+    suspend fun newUser(id: Int, name: String, location: String, title: String)
+
+    suspend fun getUser(id: Int): User
+
+    suspend fun updateUser(oldId: Int, newName: String, newLocation: String, newTitle: String)
+
+    suspend fun deleteUser(id: Int)
+
+    suspend fun getAllUsers(): List<User>
 }

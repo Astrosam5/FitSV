@@ -26,8 +26,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import projet.mobile.kotlin.fitsv.ui.viewModel.LoginViewModel
 
 
 /**
@@ -37,9 +39,9 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun LoginScreen (
     onNavigateToSingUp: () -> Unit
-    // loginViewModel: LoginViewModel = viewModel()
+//     loginViewModel: LoginViewModel = viewModel()
 ) {
-    //val viewModel = hiltViewModel<LoginViewModel>()
+    val viewModel = hiltViewModel<LoginViewModel>()
     var usernameText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
     Box(
