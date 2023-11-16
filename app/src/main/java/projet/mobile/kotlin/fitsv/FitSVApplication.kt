@@ -5,7 +5,9 @@
 package projet.mobile.kotlin.fitsv
 
 import android.app.Application
+import android.util.Log
 import dagger.hilt.android.HiltAndroidApp
+import projet.mobile.kotlin.fitsv.ui.states.LoginState
 
 /**
  * Class FitSVApplication
@@ -16,5 +18,16 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class FitSVApplication : Application() {
-    // TODO nav
+
+    override fun onCreate() {
+        super.onCreate()
+        Log.d(TAG, "Arrive inside OnCreate")
+    }
+
+    companion object {
+        const val TAG = "FitSVApplication"
+        var loginState: LoginState = LoginState()
+        var homeScreenText: String = "HOME"
+
+    }
 }

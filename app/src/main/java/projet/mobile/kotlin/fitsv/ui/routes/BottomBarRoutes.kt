@@ -2,7 +2,7 @@
  * Code made for course 8INF865 at UQAC
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
-package projet.mobile.kotlin.fitsv.ui.screens
+package projet.mobile.kotlin.fitsv.ui.routes
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -16,24 +16,24 @@ import androidx.compose.ui.graphics.vector.ImageVector
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */
-sealed class BottomBarScreen(
+sealed class BottomBarRoutes(
     val route: String,
     val title: String,
     val icon: ImageVector
 ) {
-    object Home : BottomBarScreen(
+    object Home : BottomBarRoutes(
         route = "home",
         title = "Home",
         icon = Icons.Default.Home
     )
 
-    object Programs : BottomBarScreen(
+    object Programs : BottomBarRoutes(
         route = "programs",
         title = "Programs",
         icon = Icons.Default.Person
     )
 
-    object Settings : BottomBarScreen(
+    object Settings : BottomBarRoutes(
         route = "settings",
         title = "Settings",
         icon = Icons.Default.Settings

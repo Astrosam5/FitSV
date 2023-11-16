@@ -51,16 +51,14 @@ android {
 dependencies {
 
     implementation("androidx.wear.compose:compose-material:1.2.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
 
+
+    // Room implementation with KSP
     val roomVersion = "2.6.0"
-
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
-
-    // To use Kotlin Symbol Processing (KSP)
     ksp("androidx.room:room-compiler:$roomVersion")
-
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // Hilt

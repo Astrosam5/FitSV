@@ -4,15 +4,10 @@
  */
 package projet.mobile.kotlin.fitsv.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,9 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import projet.mobile.kotlin.fitsv.ui.WindowSize
-import projet.mobile.kotlin.fitsv.ui.WindowType
-import projet.mobile.kotlin.fitsv.ui.rememberWindowSize
+import projet.mobile.kotlin.fitsv.FitSVApplication.Companion.homeScreenText
+import projet.mobile.kotlin.fitsv.ui.util.WindowSize
+import projet.mobile.kotlin.fitsv.ui.util.WindowType
+import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 
 /**
  * Function used to define UI of the HomeScreen
@@ -41,7 +37,7 @@ fun HomeScreen(windowSize: WindowSize) {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "HOME",
+                        text = homeScreenText,
                         fontSize = MaterialTheme.typography.displayMedium.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -58,7 +54,7 @@ fun HomeScreen(windowSize: WindowSize) {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "HOME",
+                        text = homeScreenText,
                         fontSize = MaterialTheme.typography.displayMedium.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Color.Red
@@ -75,7 +71,7 @@ fun HomeScreen(windowSize: WindowSize) {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "HOME",
+                        text = homeScreenText,
                         fontSize = MaterialTheme.typography.displayMedium.fontSize,
                         fontWeight = FontWeight.Bold,
                         color = Color.Blue

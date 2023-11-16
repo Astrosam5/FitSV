@@ -2,7 +2,7 @@
  * Code made for course 8INF865 at UQAC
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
-package projet.mobile.kotlin.fitsv
+package projet.mobile.kotlin.fitsv.ui.util
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ColumnScope
@@ -25,9 +25,8 @@ import androidx.navigation.compose.composable
 import androidx.wear.compose.material.ContentAlpha
 import projet.mobile.kotlin.fitsv.ui.screens.login.LoginScreen
 import projet.mobile.kotlin.fitsv.ui.screens.login.SingUpScreen
-import projet.mobile.kotlin.fitsv.ui.WindowSize
-import projet.mobile.kotlin.fitsv.ui.WindowType
-import projet.mobile.kotlin.fitsv.ui.screens.BottomBarScreen
+import projet.mobile.kotlin.fitsv.ui.routes.BottomBarRoutes
+import projet.mobile.kotlin.fitsv.ui.routes.SettingsRoutes
 import projet.mobile.kotlin.fitsv.ui.screens.HomeScreen
 import projet.mobile.kotlin.fitsv.ui.screens.ProgramsScreen
 import projet.mobile.kotlin.fitsv.ui.screens.SettingsScreen
@@ -59,24 +58,27 @@ fun Navigation(windowSize: WindowSize) {
         // Nav Bar route
         NavHost(
             navController = navController,
-            startDestination = BottomBarScreen.Home.route
+            startDestination = BottomBarRoutes.Home.route
         ) {
-            composable(route = BottomBarScreen.Home.route) {
+            composable(route = BottomBarRoutes.Home.route) {
                 HomeScreen(windowSize = windowSize)
             }
-            composable(route = BottomBarScreen.Programs.route) {
+            composable(route = BottomBarRoutes.Programs.route) {
                 ProgramsScreen(windowSize = windowSize)
             }
-            composable(route = BottomBarScreen.Settings.route) {
+            composable(route = BottomBarRoutes.Settings.route) {
                 SettingsScreen(
                     windowSize = windowSize,
-                    onNavigateToLogin = { navController.navigate("login")}
+                    onNavigateToLogin = { navController.navigate(SettingsRoutes.Login.route)}
                 )
             }
-            composable(route="login") {
-                LoginScreen(onNavigateToSingUp = {navController.navigate("sing_up")})
+            composable(route=SettingsRoutes.Login.route) {
+                LoginScreen(
+                    onNavigateToSingUp = {navController.navigate(SettingsRoutes.SingUp.route)},
+                    onNavigateToHomeScreen = { navController.navigate(BottomBarRoutes.Home.route)}
+                )
             }
-            composable(route = "sing_up") {
+            composable(route = SettingsRoutes.SingUp.route) {
                 SingUpScreen()
             }
         }
@@ -90,9 +92,9 @@ fun Navigation(windowSize: WindowSize) {
 @Composable
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Programs,
-        BottomBarScreen.Settings,
+        BottomBarRoutes.Home,
+        BottomBarRoutes.Programs,
+        BottomBarRoutes.Settings,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -115,9 +117,9 @@ fun BottomBar(navController: NavHostController) {
 @Composable
 fun NavigationRailBar(navController: NavHostController) {
     val screens = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Programs,
-        BottomBarScreen.Settings,
+        BottomBarRoutes.Home,
+        BottomBarRoutes.Programs,
+        BottomBarRoutes.Settings,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -142,7 +144,7 @@ fun NavigationRailBar(navController: NavHostController) {
  */
 @Composable
 fun RowScope.AddItem(
-    screen: BottomBarScreen,
+    screen: BottomBarRoutes,
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {
@@ -177,7 +179,7 @@ fun RowScope.AddItem(
  */
 @Composable
 fun ColumnScope.AddItem(
-    screen: BottomBarScreen,
+    screen: BottomBarRoutes,
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {

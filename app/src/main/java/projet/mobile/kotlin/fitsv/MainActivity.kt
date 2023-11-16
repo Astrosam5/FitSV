@@ -8,8 +8,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import dagger.hilt.android.AndroidEntryPoint
-import projet.mobile.kotlin.fitsv.ui.rememberWindowSize
+import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 import projet.mobile.kotlin.fitsv.ui.theme.BottomNavBarDemoTheme
+import projet.mobile.kotlin.fitsv.ui.util.Navigation
 
 /**
  * Class MainActivity

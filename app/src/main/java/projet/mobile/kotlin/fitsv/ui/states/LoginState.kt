@@ -4,6 +4,8 @@
  */
 package projet.mobile.kotlin.fitsv.ui.states
 
+import projet.mobile.kotlin.fitsv.domain.model.UserModel
+
 /**
  * Class LoginState
  * TODO Comment use case of class LoginState
@@ -11,8 +13,8 @@ package projet.mobile.kotlin.fitsv.ui.states
  * @author Valentin Ayroles
  */
 data class LoginState (
-  val username : String = "",
-  val password : String = "",
+  val user: UserModel? = null,
+  val logged: Boolean = false,
   val error: Boolean = false,
-  val errorMessage: String
+  val errorMessage: String = ""
 )

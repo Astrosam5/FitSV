@@ -4,7 +4,13 @@
  */
 package projet.mobile.kotlin.fitsv.domain.repository
 
-import projet.mobile.kotlin.fitsv.data.User
+import kotlinx.coroutines.flow.flow
+import projet.mobile.kotlin.fitsv.data.datasource.UserDataSource
+import projet.mobile.kotlin.fitsv.domain.model.UserModel
+import projet.mobile.kotlin.fitsv.ui.states.ResourcesState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import javax.inject.Inject
 
 /**
  * Interface MyRepository
@@ -12,14 +18,22 @@ import projet.mobile.kotlin.fitsv.data.User
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */
-interface UserRepository {
-    suspend fun newUser(id: Int, name: String, location: String, title: String)
+class UserRepository @Inject constructor(
+    private val userDataSource: UserDataSource
+) {
 
-    suspend fun getUser(id: Int): User
+    suspend fun getAllUsers(): Flow<ResourcesState<List<UserModel>>> {
+        return flow {
+            emit(ResourcesState.Loading())
+            val response = userDataSource.getAllUsers()
+            if (response.isSuccessful && response.body() != null) {
+                emit(ResourcesState.Success(response.body()!!))
+            } else {
+                emit(ResourcesState.Error("Error fetching Users"))
+            }
+        }.catch { e ->
+            emit(ResourcesState.Error(e.localizedMessage ?:"Some error in flow"))
+        }
+    }
 
-    suspend fun updateUser(oldId: Int, newName: String, newLocation: String, newTitle: String)
-
-    suspend fun deleteUser(id: Int)
-
-    suspend fun getAllUsers(): List<User>
 }

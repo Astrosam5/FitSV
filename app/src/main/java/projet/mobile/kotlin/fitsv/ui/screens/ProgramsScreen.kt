@@ -16,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import projet.mobile.kotlin.fitsv.ui.WindowSize
-import projet.mobile.kotlin.fitsv.ui.WindowType
-import projet.mobile.kotlin.fitsv.ui.rememberWindowSize
+import projet.mobile.kotlin.fitsv.ui.util.WindowSize
+import projet.mobile.kotlin.fitsv.ui.util.WindowType
+import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 
 /**
  * Function used to define UI of the ProgramsScreen
@@ -77,9 +77,6 @@ fun ProgramsScreen(windowSize: WindowSize) {
                     )
                 }
             }
-        }
-        else -> {
-            throw IllegalArgumentException("Dp value cannot be negative")
         }
     }
 

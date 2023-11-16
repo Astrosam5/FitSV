@@ -19,9 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import projet.mobile.kotlin.fitsv.ui.WindowSize
-import projet.mobile.kotlin.fitsv.ui.WindowType
-import projet.mobile.kotlin.fitsv.ui.rememberWindowSize
+import projet.mobile.kotlin.fitsv.ui.util.WindowSize
+import projet.mobile.kotlin.fitsv.ui.util.WindowType
+import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 
 /**
  * Function used to define UI of the SettingsScreen
