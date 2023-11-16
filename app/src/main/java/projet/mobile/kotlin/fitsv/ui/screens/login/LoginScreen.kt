@@ -73,7 +73,12 @@ fun LoginScreen (
                 Log.d(TAG, "Inside Success\n" +
                         "Nb of user ${response.size}")
                 if (response.isNotEmpty()) {
-                    ShowConnexionColumn(onNavigateToSingUp, onNavigateToHomeScreen, response)
+                    ShowConnexionColumn(
+                        onNavigateToSingUp = onNavigateToSingUp,
+                        onNavigateToHomeScreen = onNavigateToHomeScreen,
+                        loginViewModel = loginViewModel,
+                        listUser = response
+                    )
                 } else {
                     Log.d(TAG, "No user")
                     // TODO Prompt error and propose to sing-up
@@ -94,6 +99,7 @@ fun LoginScreen (
 fun ShowConnexionColumn(
     onNavigateToSingUp: () -> Unit,
     onNavigateToHomeScreen: () -> Unit,
+    loginViewModel: LoginViewModel = hiltViewModel(),
     listUser: List<UserModel>) {
     var usernameText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
@@ -120,6 +126,10 @@ fun ShowConnexionColumn(
             Spacer(modifier = Modifier.padding(horizontal = 20.dp))
             Button(onClick = {
                 connexion(usernameText, passwordText, listUser, onNavigateToHomeScreen)
+                if (loginState.logged && loginState.user != null) {
+                    loginViewModel.deleteAllUser()
+                    loginViewModel.saveUser(loginState.user!!)
+                }
 
             }) {
                 Text(text = "Connect")
@@ -160,14 +170,14 @@ fun connexion(
     if (userFound != null) {
         if (userFound.password == cleanPassword) {
             loginState = LoginState(userFound, true)
-            var homeText: String = "Hello ${loginState.user?.name ?: ""}"
+            val homeText = "Hello ${loginState.user?.name ?: ""}"
             FitSVApplication.homeScreenText = homeText
             onNavigateToHomeScreen()
         } else {
-             // TODO("Prompt password is wrong")
+             // TODO Prompt password is wrong
         }
     } else {
-        // TODO("Prompt error message")
+        // TODO Prompt error message
     }
 }
 

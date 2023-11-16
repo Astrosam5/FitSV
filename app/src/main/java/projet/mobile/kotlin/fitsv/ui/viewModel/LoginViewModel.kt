@@ -4,30 +4,17 @@
  */
 package projet.mobile.kotlin.fitsv.ui.viewModel
 
-import android.util.Log
-import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.Navigation
-import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectIndexed
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import projet.mobile.kotlin.fitsv.FitSVApplication
-import projet.mobile.kotlin.fitsv.FitSVApplication.Companion.homeScreenText
-import projet.mobile.kotlin.fitsv.FitSVApplication.Companion.loginState
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 import projet.mobile.kotlin.fitsv.domain.repository.UserRepository
-import projet.mobile.kotlin.fitsv.ui.routes.BottomBarRoutes
-import projet.mobile.kotlin.fitsv.ui.screens.HomeScreen
-import projet.mobile.kotlin.fitsv.ui.states.LoginState
 import projet.mobile.kotlin.fitsv.ui.states.ResourcesState
-import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
-import retrofit2.Response
 import javax.inject.Inject
 
 /**
@@ -59,6 +46,18 @@ class LoginViewModel @Inject constructor(
                 .collectLatest { userList ->
                     _userList.value = userList
                 }
+        }
+    }
+
+    fun saveUser(user: UserModel) {
+        viewModelScope.launch {
+            userRepository.saveUser(user)
+        }
+    }
+
+    fun deleteAllUser() {
+        viewModelScope.launch {
+            userRepository.deleteAllUser()
         }
     }
 

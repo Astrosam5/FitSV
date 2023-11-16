@@ -4,6 +4,7 @@
  */
 package projet.mobile.kotlin.fitsv.data.datasource
 
+import projet.mobile.kotlin.fitsv.data.source.local.UserDao
 import projet.mobile.kotlin.fitsv.data.source.remote.UserApi
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 import retrofit2.Response
@@ -16,9 +17,18 @@ import javax.inject.Inject
  * @author Valentin Ayroles
  */
 class UserDataSourceImp @Inject constructor(
-    private val userApi: UserApi
+    private val userApi: UserApi,
+    private val userDao: UserDao
 ) : UserDataSource {
     override suspend fun getAllUsers(): Response<List<UserModel>> {
         return userApi.getAllUsers()
+    }
+
+    override suspend fun saveUser(user: UserModel) {
+        return userDao.insertUser(user)
+    }
+
+    override suspend fun deleteAllUser() {
+        return userDao.deleteAllUser()
     }
 }

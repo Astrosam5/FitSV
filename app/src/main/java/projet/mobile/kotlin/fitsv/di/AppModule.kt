@@ -15,8 +15,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import projet.mobile.kotlin.fitsv.data.source.remote.UserApi
 import projet.mobile.kotlin.fitsv.data.datasource.UserDataSource
 import projet.mobile.kotlin.fitsv.data.datasource.UserDataSourceImp
-import projet.mobile.kotlin.fitsv.data.source.db.AppDatabase
-import projet.mobile.kotlin.fitsv.data.source.db.UserDao
+import projet.mobile.kotlin.fitsv.data.source.local.AppDatabase
+import projet.mobile.kotlin.fitsv.data.source.local.UserDao
 import projet.mobile.kotlin.fitsv.domain.repository.UserRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -72,17 +72,6 @@ object AppModule {
         return retrofit.create(UserApi::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideUserDataSource(userApi: UserApi) : UserDataSource {
-        return UserDataSourceImp(userApi)
-    }
-
-    @Provides
-    @Singleton
-    fun provideUserRepository(userDataSource: UserDataSource) : UserRepository {
-        return UserRepository(userDataSource)
-    }
 
     // --------------------------------- Function for DAO ---------------------------------
 
@@ -93,14 +82,30 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun getAppDatabase(context: Context): AppDatabase {
+    fun provideAppDatabase(context: Context): AppDatabase {
         return AppDatabase.getAppDBInstance(context)
     }
 
     @Provides
     @Singleton
-    fun getUserDao(appDatabase: AppDatabase): UserDao {
+    fun provideUserDao(appDatabase: AppDatabase): UserDao {
         return appDatabase.userDao()
+    }
+
+    // --------------------------------- DataSource ---------------------------------
+
+    @Provides
+    @Singleton
+    fun provideUserDataSource(userApi: UserApi, userDao: UserDao) : UserDataSource {
+        return UserDataSourceImp(userApi, userDao)
+    }
+
+    // --------------------------------- Repository ---------------------------------
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(userDataSource: UserDataSource) : UserRepository {
+        return UserRepository(userDataSource)
     }
 
 

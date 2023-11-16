@@ -1,14 +1,18 @@
 package projet.mobile.kotlin.fitsv.domain.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 @Entity(tableName = "user")
 data class UserModel (
-    @PrimaryKey val id: ObjectId,
-    val name: String,
-    val password: String
+    @PrimaryKey() @ColumnInfo(name = "id") val id: ObjectId,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "password") val password: String
 )
 
 
@@ -17,16 +21,18 @@ data class ObjectId(
 )
 
 class TypeConverterObjectID{
+
+    private val gson: Gson = Gson()
     @TypeConverter
-    fun stringToObjectId(data: String?): ObjectId? {
+    fun stringToSomeObjectList(data: String?): ObjectId? {
         if (data == null) return null
-        return ObjectId(data)
+        val listType: Type = object : TypeToken<ObjectId?>() {}.type
+        return gson.fromJson<ObjectId?>(data, listType)
     }
 
     @TypeConverter
-    fun objectIdToString(data: ObjectId?): String? {
-        if (data == null) return null
-        return data.oid
+    fun someObjectListToString(someObject: ObjectId?): String? {
+        return gson.toJson(someObject)
     }
 
 }

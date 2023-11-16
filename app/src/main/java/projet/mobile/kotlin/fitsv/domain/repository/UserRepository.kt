@@ -36,4 +36,12 @@ class UserRepository @Inject constructor(
         }
     }
 
+    suspend fun saveUser(user: UserModel) {
+        return userDataSource.saveUser(user)
+    }
+
+    suspend fun deleteAllUser() {
+        return userDataSource.deleteAllUser()
+    }
+
 }

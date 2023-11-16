@@ -15,4 +15,8 @@ import retrofit2.Response
  */
 interface UserDataSource {
     suspend fun getAllUsers(): Response<List<UserModel>>
+
+    suspend fun saveUser(user: UserModel)
+
+    suspend fun deleteAllUser()
 }

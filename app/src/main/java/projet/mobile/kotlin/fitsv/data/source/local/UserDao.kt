@@ -2,12 +2,12 @@
  * Code made for course 8INF865 at UQAC
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
-package projet.mobile.kotlin.fitsv.data.source.db
+package projet.mobile.kotlin.fitsv.data.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 
@@ -23,8 +23,16 @@ interface UserDao {
     @Query("SELECT * FROM user")
     fun getAllUser(): LiveData<List<UserModel>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE) // TODO check if best strategy
-    fun insertUser(userModel: UserModel)
+    @Insert
+    fun insertUser(vararg users: UserModel)
+
+    @Delete
+    fun delete(user: UserModel)
+
+    @Query("DELETE FROM user")
+    fun deleteAllUser()
+
+
 
 
 }
