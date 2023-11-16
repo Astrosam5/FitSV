@@ -8,8 +8,7 @@ import androidx.room.TypeConverter
 data class UserModel (
     @PrimaryKey val id: ObjectId,
     val name: String,
-    val password: String,
-    val title: String
+    val password: String
 )
 
 
