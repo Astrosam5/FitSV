@@ -24,11 +24,15 @@ class UserDataSourceImp @Inject constructor(
         return userApi.getAllUsers()
     }
 
-    override suspend fun saveUser(user: UserModel) {
+    override suspend fun insertUserOnDB(user: UserModel) {
         return userDao.insertUser(user)
     }
 
-    override suspend fun deleteAllUser() {
+    override suspend fun deleteAllUserFromDB() {
         return userDao.deleteAllUser()
+    }
+
+    override suspend fun addUserAPI(user: UserModel) {
+        return userApi.newUser(user)
     }
 }

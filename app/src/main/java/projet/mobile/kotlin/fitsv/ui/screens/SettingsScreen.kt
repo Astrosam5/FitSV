@@ -15,10 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.ui.util.WindowSize
 import projet.mobile.kotlin.fitsv.ui.util.WindowType
 import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
@@ -31,75 +33,38 @@ fun SettingsScreen(
     windowSize: WindowSize,
     onNavigateToLogin: () -> Unit
 ) {
-    when (windowSize.width) {
-        WindowType.Compact -> {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column {
-                        Button(onClick = onNavigateToLogin) {
-                            Text(text = "Login")
-                        }
-                        Text(
-                            text = "SETTINGS",
-                            fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black
-                        )
+
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    when (windowSize.width) {
+                        WindowType.Compact -> Color.White
+                        WindowType.Medium -> Color.Black
+                        WindowType.Expanded -> Color.Yellow
                     }
-                }
-            }
-        }
-        WindowType.Medium -> {
+                ),
+            contentAlignment = Alignment.Center
+        ) {
             Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column {
-                        Button(onClick = onNavigateToLogin) {
-                            Text(text = "Login")
-                        }
-                        Text(
-                            text = "SETTINGS",
-                            fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Red
-                        )
-                    }
+                Button(onClick = onNavigateToLogin) {
+                    Text(text = stringResource(R.string.login))
                 }
-            }
-        }
-        WindowType.Expanded -> {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Yellow),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column {
-                        Button(onClick = onNavigateToLogin) {
-                            Text(text = "Login")
+                Text(
+                    text = stringResource(R.string.settings),
+                    fontSize = MaterialTheme.typography.displayMedium.fontSize,
+                    fontWeight = FontWeight.Bold,
+                    color =
+                        when (windowSize.width) {
+                            WindowType.Compact -> Color.Black
+                            WindowType.Medium -> Color.Red
+                            WindowType.Expanded -> Color.Blue
                         }
-                        Text(
-                            text = "SETTINGS",
-                            fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Blue
-                        )
-                    }
-                }
+                )
             }
         }
     }
-
 
 }
 

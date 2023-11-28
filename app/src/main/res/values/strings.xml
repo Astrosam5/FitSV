@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">FitSV</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="username_must_be_filled">Username must be filled</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="password_confirmation">Password Confirmation</string>
+    <string name="this_username_already_exist">This username already exist</string>
+    <string name="password_must_be_filled">Password must be filled</string>
+    <string name="username_can_only_contain">Username can only contain letter numbers and underscores</string>
+    <string name="password_can_only_contain"><![CDATA[Password can only contain letter numbers or * + : / \\ $ & ? @ ! -]]></string>
+    <string name="password_must_correspond">Password must correspond</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="username_and_password_must_be_filled">Username and password must be filled</string>
+    <string name="username_is_incorrect">The username is incorrect</string>
+    <string name="password_is_incorrect">The password is incorrect</string>
+    <string name="internal_error">Internal Error</string>
+    <string name="settings">SETTINGS</string>
+    <string name="login">Login</string>
+    <string name="programs">PROGRAMS</string>
+    <string name="no_user_registered">No user registered, Let\'s sing up</string>
+    <string name="sing_up">Sing-up</string>
+    <string name="connect">Connect</string>
 </resources>

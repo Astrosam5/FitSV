@@ -52,6 +52,7 @@ dependencies {
 
     implementation("androidx.wear.compose:compose-material:1.2.1")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
 
 
     // Room implementation with KSP

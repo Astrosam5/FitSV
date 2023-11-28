@@ -12,27 +12,21 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import projet.mobile.kotlin.fitsv.FitSVApplication
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 import projet.mobile.kotlin.fitsv.domain.repository.UserRepository
-import projet.mobile.kotlin.fitsv.ui.states.LoginState
 import projet.mobile.kotlin.fitsv.ui.states.ResourcesState
 import javax.inject.Inject
 
 /**
- * Class LoginViewModel
- * TODO Comment use case of class LoginViewModel
+ * Class SingupViewModel
+ * TODO Comment use case of class SingupViewModel
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class SingUpViewModel@Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
-
-    companion object {
-        const val TAG = "LoginViewModel"
-    }
 
     private val _userList : MutableStateFlow<ResourcesState<List<UserModel>>> =
         MutableStateFlow(ResourcesState.Loading())
@@ -51,26 +45,43 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun saveUser(user: UserModel) {
+    fun saveUserToDB(user: UserModel) {
         viewModelScope.launch {
             userRepository.insertUserOnDB(user)
         }
     }
 
-    fun deleteAllUser() {
+    fun addUserOnAPI(user: UserModel) {
         viewModelScope.launch {
-            userRepository.deleteAllUserFromDB()
+            userRepository.addUserAPI(user)
         }
     }
 
+    /**
+     * Check if password is ok
+     */
+    fun doesPasswordFormatIsOk(password: String): Boolean {
+        return password.length > 8 && password.matches(Regex("[\\w*+:/$&?@!-]+"))
+    }
 
-    fun connexion(
-        username: String,
-        password: String,
-        listUser: List<UserModel>,
-        onNavigateToHomeScreen: () -> Unit
-    ) {
-        // Username transformation
+    /**
+     * Check if username format is ok
+     */
+    fun doesUsernameFormatIsOk(username: String): Boolean {
+        return username.matches(Regex("\\w+"))
+    }
+
+    /**
+     * return true if password are the same, else false
+     */
+    fun doesPasswordCorrespond(password: String, passwordConf: String): Boolean {
+        return password.trim() == passwordConf.trim()
+    }
+
+    /**
+     * @return true if user exist else false
+     */
+    fun doesUsernameExist(username: String, listUser: List<UserModel>) : Boolean {
         val cleanUsername = username.lowercase().trim()
         // Search user in list
         var userFound: UserModel? = null
@@ -79,22 +90,7 @@ class LoginViewModel @Inject constructor(
                 userFound = user
             }
         }
-        // Password transformation
-        val cleanPassword = password.trim()
-
-        if (userFound != null) {
-            if (userFound.password == cleanPassword) {
-                FitSVApplication.loginState = LoginState(userFound, true)
-                val homeText = "Hello ${FitSVApplication.loginState.user?.name ?: ""}"
-                FitSVApplication.homeScreenText = homeText
-                onNavigateToHomeScreen()
-            } else {
-                // TODO Prompt password is wrong
-            }
-        } else {
-            // TODO Prompt error message
-        }
+        return userFound != null
     }
-
 
 }

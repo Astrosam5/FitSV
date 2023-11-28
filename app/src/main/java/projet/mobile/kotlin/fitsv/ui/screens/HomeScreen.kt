@@ -27,60 +27,32 @@ import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 @Composable
 fun HomeScreen(windowSize: WindowSize) {
 
-    when (windowSize.width) {
-        WindowType.Compact -> {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = homeScreenText,
-                        fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                }
-            }
-        }
-        WindowType.Medium -> {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = homeScreenText,
-                        fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Red
-                    )
-                }
-            }
-        }
-        WindowType.Expanded -> {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Yellow),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = homeScreenText,
-                        fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Blue
-                    )
-                }
-            }
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    when (windowSize.width) {
+                        WindowType.Compact -> Color.White
+                        WindowType.Medium -> Color.Black
+                        WindowType.Expanded -> Color.Yellow
+                    }
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = homeScreenText,
+                fontSize = MaterialTheme.typography.displayMedium.fontSize,
+                fontWeight = FontWeight.Bold,
+                color =
+                    when (windowSize.width) {
+                        WindowType.Compact -> Color.Black
+                        WindowType.Medium -> Color.Red
+                        WindowType.Expanded -> Color.Blue
+                    }
+            )
         }
     }
-
 }
 
 

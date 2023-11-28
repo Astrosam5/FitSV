@@ -22,7 +22,7 @@ interface UserApi {
     suspend fun getAllUsers(): Response<List<UserModel>>
 
     @POST("/user")
-    suspend fun newUser(@Body userModel: UserModel) // TODO correct post
+    suspend fun newUser(@Body userModel: UserModel)
 
     @GET("/user/{id}")
     suspend fun getUser(@Path("id") id: String): Response<UserModel>

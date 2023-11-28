@@ -13,12 +13,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,6 +35,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,7 +46,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import projet.mobile.kotlin.fitsv.FitSVApplication
 import projet.mobile.kotlin.fitsv.FitSVApplication.Companion.loginState
+import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
+import projet.mobile.kotlin.fitsv.ui.routes.SettingsRoutes
 import projet.mobile.kotlin.fitsv.ui.states.LoginState
 import projet.mobile.kotlin.fitsv.ui.states.ResourcesState
 import projet.mobile.kotlin.fitsv.ui.viewModel.LoginViewModel
@@ -81,13 +94,27 @@ fun LoginScreen (
                     )
                 } else {
                     Log.d(TAG, "No user")
-                    // TODO Prompt error and propose to sing-up
+                    Column (modifier = Modifier.fillMaxWidth()){
+                        Text(
+                            text = stringResource(R.string.no_user_registered),
+                            color = Color.Red,
+                        )
+                        Button(onClick = onNavigateToSingUp) {
+                            Text(text = stringResource(R.string.sing_up))
+                        }
+                    }
                 }
             }
 
             is ResourcesState.Error -> {
                 Log.d(TAG, "Inside Error")
-                // TODO Prompt error about internet connexion
+                Column (modifier = Modifier.fillMaxWidth()){
+                    Text(
+                        text = stringResource(id = R.string.internal_error),
+                        color = Color.Red,
+                    )
+
+                }
 
             }
         }
@@ -107,17 +134,35 @@ fun ShowConnexionColumn(
         TextField(
             value = usernameText,
             onValueChange = { usernameText = it },
-            label = { Text("Username") },
+            label = { Text(stringResource(R.string.username)) },
             singleLine = true,
-            placeholder = { Text("Username") },
+            placeholder = { Text(stringResource(R.string.username)) },
         )
+
+
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        var passwordVisible by remember { mutableStateOf(false) }
         TextField(
             value = passwordText,
             onValueChange = { passwordText = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(R.string.password)) },
             singleLine = true,
-            placeholder = { Text("Password") },
+            placeholder = { Text(stringResource(R.string.password)) },
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                val image = if (passwordVisible)
+                    Icons.Filled.Visibility
+                else Icons.Filled.VisibilityOff
+
+                // Localized description for accessibility services
+                val description = if (passwordVisible) "Hide password" else "Show password"
+
+                // Toggle button to hide or display password
+                IconButton(onClick = {passwordVisible = !passwordVisible}){
+                    Icon(imageVector  = image, description)
+                }
+            }
         )
         Row (horizontalArrangement = Arrangement.SpaceEvenly ) {
             Button(onClick = onNavigateToSingUp) {
@@ -125,14 +170,14 @@ fun ShowConnexionColumn(
             }
             Spacer(modifier = Modifier.padding(horizontal = 20.dp))
             Button(onClick = {
-                connexion(usernameText, passwordText, listUser, onNavigateToHomeScreen)
+                loginViewModel.connexion(usernameText, passwordText, listUser, onNavigateToHomeScreen)
                 if (loginState.logged && loginState.user != null) {
                     loginViewModel.deleteAllUser()
                     loginViewModel.saveUser(loginState.user!!)
                 }
 
             }) {
-                Text(text = "Connect")
+                Text(text = stringResource(R.string.connect))
             }
         }
     }
@@ -143,43 +188,14 @@ fun ShowConnexionColumn(
 @Composable
 fun Loader() {
     CircularProgressIndicator(
-        modifier = Modifier.size(50.dp).padding(10.dp),
+        modifier = Modifier
+            .size(50.dp)
+            .padding(10.dp),
         color = Color.Blue
     )
 }
 
 
-fun connexion(
-    username: String,
-    password: String,
-    listUser: List<UserModel>,
-    onNavigateToHomeScreen: () -> Unit
-) {
-    // Username transformation
-    val cleanUsername = username.lowercase().trim()
-    // Search user in list
-    var userFound: UserModel? = null
-    for (user in listUser) {
-        if (user.name.lowercase() == cleanUsername) {
-            userFound = user
-        }
-    }
-    // Password transformation
-    val cleanPassword = password.trim()
-
-    if (userFound != null) {
-        if (userFound.password == cleanPassword) {
-            loginState = LoginState(userFound, true)
-            val homeText = "Hello ${loginState.user?.name ?: ""}"
-            FitSVApplication.homeScreenText = homeText
-            onNavigateToHomeScreen()
-        } else {
-             // TODO Prompt password is wrong
-        }
-    } else {
-        // TODO Prompt error message
-    }
-}
 
 /**
  * Preview for the LoginScreen
@@ -188,7 +204,7 @@ fun connexion(
 @Preview
 fun LoginScreenPreview() {
     val navController: NavHostController = rememberNavController()
-    LoginScreen(onNavigateToSingUp = {navController.navigate("sing_up")}) {
+    LoginScreen(onNavigateToSingUp = {navController.navigate(SettingsRoutes.SingUp.route)}) {
         navController.navigate(
             projet.mobile.kotlin.fitsv.ui.routes.BottomBarRoutes.Home.route
         )

@@ -79,7 +79,7 @@ fun Navigation(windowSize: WindowSize) {
                 )
             }
             composable(route = SettingsRoutes.SingUp.route) {
-                SingUpScreen()
+                SingUpScreen(onNavigateToHomeScreen = {navController.navigate(BottomBarRoutes.Home.route)})
             }
         }
     }
