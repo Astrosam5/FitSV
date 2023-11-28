@@ -4,6 +4,9 @@
  */
 package projet.mobile.kotlin.fitsv.ui.viewModel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +24,6 @@ import javax.inject.Inject
 
 /**
  * Class LoginViewModel
- * TODO Comment use case of class LoginViewModel
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */
@@ -29,6 +31,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
+
+    private val dispatchers = Dispatchers.IO
 
     companion object {
         const val TAG = "LoginViewModel"
@@ -43,7 +47,7 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun getAllUsers() {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch (dispatchers) {
             userRepository.getAllUsers()
                 .collectLatest { userList ->
                     _userList.value = userList
@@ -64,36 +68,76 @@ class LoginViewModel @Inject constructor(
     }
 
 
+    private var openAlertEmpty by mutableStateOf(false)
+
+    fun getAlertEmpty(): Boolean {
+        return openAlertEmpty
+    }
+
+    fun closeAlertEmpty() {
+        openAlertEmpty = false
+    }
+
+    private var openAlertWrongPassword by mutableStateOf(false)
+
+    fun getAlertWrongPassword(): Boolean {
+        return openAlertWrongPassword
+    }
+
+    fun closeAlertWrongPassword() {
+        openAlertWrongPassword = false
+    }
+
+    private var openAlertUnknownUser by mutableStateOf(false)
+
+    fun getAlertUnknownUser(): Boolean {
+        return openAlertUnknownUser
+    }
+
+    fun closeAlertUnknownUser() {
+        openAlertUnknownUser = false
+    }
+
+
     fun connexion(
         username: String,
         password: String,
         listUser: List<UserModel>,
         onNavigateToHomeScreen: () -> Unit
     ) {
-        // Username transformation
-        val cleanUsername = username.lowercase().trim()
-        // Search user in list
-        var userFound: UserModel? = null
-        for (user in listUser) {
-            if (user.name.lowercase() == cleanUsername) {
-                userFound = user
-            }
-        }
-        // Password transformation
-        val cleanPassword = password.trim()
-
-        if (userFound != null) {
-            if (userFound.password == cleanPassword) {
-                FitSVApplication.loginState = LoginState(userFound, true)
-                val homeText = "Hello ${FitSVApplication.loginState.user?.name ?: ""}"
-                FitSVApplication.homeScreenText = homeText
-                onNavigateToHomeScreen()
-            } else {
-                // TODO Prompt password is wrong
-            }
+        if (username.isBlank() || password.isBlank()) {
+            openAlertEmpty = true
         } else {
-            // TODO Prompt error message
+            // Username transformation
+            val cleanUsername = username.lowercase().trim()
+            // Search user in list
+            var userFound: UserModel? = null
+            for (user in listUser) {
+                if (user.name.lowercase() == cleanUsername) {
+                    userFound = user
+                }
+            }
+
+            // Password transformation
+            val cleanPassword = password.trim()
+
+            if (userFound != null) {
+                if (userFound.password == cleanPassword) {
+                    FitSVApplication.loginState = LoginState(userFound, true)
+                    val homeText = "Hello ${FitSVApplication.loginState.user?.name ?: ""}"
+                    FitSVApplication.homeScreenText = homeText
+                    onNavigateToHomeScreen()
+                } else {
+                    openAlertWrongPassword = true
+                }
+            } else {
+                openAlertUnknownUser = true
+            }
+
         }
+
+
+
     }
 
 

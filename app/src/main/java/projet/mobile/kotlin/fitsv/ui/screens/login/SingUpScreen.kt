@@ -259,6 +259,7 @@ fun SingUpColumn(
                         id=ObjectId(""))
                     // add user to API
                     singUpViewModel.addUserOnAPI(newUser)
+                    singUpViewModel.saveUserToDB(newUser)
 
                     // log user
                     FitSVApplication.loginState = LoginState(newUser, true)
@@ -268,9 +269,10 @@ fun SingUpColumn(
                 }
             }
         }) {
-            Text(text = "Sing-up")
+            Text(text = stringResource(R.string.sing_up))
         }
 
+        // ------------------------ Alerts dialogs ------------------------
         when {
             openAlertEmpty -> {
                 AlertDialog(

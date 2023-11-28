@@ -21,4 +21,5 @@
     <string name="no_user_registered">No user registered, Let\'s sing up</string>
     <string name="sing_up">Sing-up</string>
     <string name="connect">Connect</string>
+    <string name="unknown_user">This user does not exist</string>
 </resources>

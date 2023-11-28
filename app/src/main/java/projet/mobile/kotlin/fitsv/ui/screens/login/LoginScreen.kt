@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -131,6 +132,7 @@ fun ShowConnexionColumn(
     var usernameText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
     Column {
+        // ------------------------ Username ------------------------
         TextField(
             value = usernameText,
             onValueChange = { usernameText = it },
@@ -139,7 +141,7 @@ fun ShowConnexionColumn(
             placeholder = { Text(stringResource(R.string.username)) },
         )
 
-
+        // ------------------------ Passwords ------------------------
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
         var passwordVisible by remember { mutableStateOf(false) }
         TextField(
@@ -178,6 +180,46 @@ fun ShowConnexionColumn(
 
             }) {
                 Text(text = stringResource(R.string.connect))
+            }
+        }
+
+        // ------------------------ Alerts dialogs ------------------------
+        when {
+            loginViewModel.getAlertEmpty() -> {
+                AlertDialog(
+                    onDismissRequest = { loginViewModel.closeAlertEmpty() },
+                    buttons = {
+                        Button(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = { loginViewModel.closeAlertEmpty() }
+                        ) { Text(stringResource(R.string.dismiss)) }
+                    },
+                    text =  { Text(text = stringResource(R.string.username_and_password_must_be_filled)) }
+                )
+            }
+            loginViewModel.getAlertWrongPassword() -> {
+                AlertDialog(
+                    onDismissRequest = { loginViewModel.closeAlertWrongPassword() },
+                    buttons = {
+                        Button(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = { loginViewModel.closeAlertWrongPassword() }
+                        ) { Text(stringResource(R.string.dismiss)) }
+                    },
+                    text =  { Text(text = stringResource(R.string.password_is_incorrect)) }
+                )
+            }
+            loginViewModel.getAlertUnknownUser() -> {
+                AlertDialog(
+                    onDismissRequest = { loginViewModel.closeAlertUnknownUser() },
+                    buttons = {
+                        Button(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = { loginViewModel.closeAlertUnknownUser() }
+                        ) { Text(stringResource(R.string.dismiss)) }
+                    },
+                    text =  { Text(text = stringResource(R.string.unknown_user)) }
+                )
             }
         }
     }
