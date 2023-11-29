@@ -48,7 +48,7 @@ import projet.mobile.kotlin.fitsv.domain.model.UserModel
 import projet.mobile.kotlin.fitsv.ui.routes.BottomBarRoutes
 import projet.mobile.kotlin.fitsv.ui.states.LoginState
 import projet.mobile.kotlin.fitsv.ui.states.ResourcesState
-import projet.mobile.kotlin.fitsv.ui.viewModel.SingUpViewModel
+import projet.mobile.kotlin.fitsv.ui.viewModel.login.SingUpViewModel
 
 /**
  * Function used to define UI of the SingUpScreen

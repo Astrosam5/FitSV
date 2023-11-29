@@ -2,7 +2,7 @@
  * Code made for course 8INF865 at UQAC
  * Copyright UQAC - Samuel Albareda Zumelzu - Valentin Ayroles
  */
-package projet.mobile.kotlin.fitsv.ui.viewModel
+package projet.mobile.kotlin.fitsv.ui.viewModel.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

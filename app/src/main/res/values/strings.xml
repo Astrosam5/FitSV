@@ -22,4 +22,6 @@
     <string name="sing_up">Sing-up</string>
     <string name="connect">Connect</string>
     <string name="unknown_user">This user does not exist</string>
+    <string name="add_picture">Add a picture</string>
+    <string name="stepChanelName">stepChanelName</string>
 </resources>

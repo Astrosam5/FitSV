@@ -45,14 +45,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import projet.mobile.kotlin.fitsv.FitSVApplication
 import projet.mobile.kotlin.fitsv.FitSVApplication.Companion.loginState
 import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 import projet.mobile.kotlin.fitsv.ui.routes.SettingsRoutes
-import projet.mobile.kotlin.fitsv.ui.states.LoginState
 import projet.mobile.kotlin.fitsv.ui.states.ResourcesState
-import projet.mobile.kotlin.fitsv.ui.viewModel.LoginViewModel
+import projet.mobile.kotlin.fitsv.ui.viewModel.login.LoginViewModel
 
 
 const val TAG = "LoginScreen"

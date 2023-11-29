@@ -7,7 +7,13 @@ package projet.mobile.kotlin.fitsv
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.OutOfQuotaPolicy
+import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
+import projet.mobile.kotlin.fitsv.data.sensors.HardwareStepCounterSource
 import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 import projet.mobile.kotlin.fitsv.ui.theme.BottomNavBarDemoTheme
 import projet.mobile.kotlin.fitsv.ui.util.Navigation
@@ -34,4 +40,22 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        val constraint = Constraints.Builder()
+            .build()
+
+        val stepWorkerRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>()
+            .setConstraints(constraint)
+            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST) // Lance service tout de suite
+            .build()
+
+        WorkManager.getInstance(applicationContext)
+            .enqueueUniqueWork("step_counter",
+                ExistingWorkPolicy.KEEP,
+                stepWorkerRequest)
+    }
+
 }
