@@ -9,6 +9,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 
 /**
@@ -32,7 +33,8 @@ interface UserDao {
     @Query("DELETE FROM user")
     fun deleteAllUser()
 
-
+    @Query("SELECT steps FROM user")
+    fun getUserSteps(): Flow<Int>
 
 
 }

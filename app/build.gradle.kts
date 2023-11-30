@@ -55,6 +55,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
     implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
     implementation("androidx.work:work-runtime-ktx:2.8.1")
+    implementation("androidx.hilt:hilt-work:1.1.0")
 
 
     // Room implementation with KSP

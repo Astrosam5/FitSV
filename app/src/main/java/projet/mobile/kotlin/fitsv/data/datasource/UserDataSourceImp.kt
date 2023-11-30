@@ -4,6 +4,7 @@
  */
 package projet.mobile.kotlin.fitsv.data.datasource
 
+import kotlinx.coroutines.flow.Flow
 import projet.mobile.kotlin.fitsv.data.source.local.UserDao
 import projet.mobile.kotlin.fitsv.data.source.remote.UserApi
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
@@ -34,5 +35,9 @@ class UserDataSourceImp @Inject constructor(
 
     override suspend fun addUserAPI(user: UserModel) {
         return userApi.newUser(user)
+    }
+
+    override suspend fun getUserStepsFromDB(): Flow<Int> {
+        return userDao.getUserSteps()
     }
 }

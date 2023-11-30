@@ -7,6 +7,7 @@ package projet.mobile.kotlin.fitsv.data.sensors
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Sensor
+import android.hardware.SensorEvent
 
 class LightSensor(
     context: Context
@@ -16,7 +17,7 @@ class LightSensor(
     sensorType = Sensor.TYPE_LIGHT
 )
 
-class StepSensor(
+class StepCounterSensor(
     context: Context
 ): AndroidSensor(
     context = context,

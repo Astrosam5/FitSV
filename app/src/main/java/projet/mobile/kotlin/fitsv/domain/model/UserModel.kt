@@ -12,7 +12,8 @@ import java.lang.reflect.Type
 data class UserModel (
     @PrimaryKey() @ColumnInfo(name = "id") val id: ObjectId,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "password") val password: String
+    @ColumnInfo(name = "password") val password: String,
+    @ColumnInfo(name = "steps") val steps: Int,
 )
 
 

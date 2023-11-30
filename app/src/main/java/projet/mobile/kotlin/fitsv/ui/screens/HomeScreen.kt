@@ -4,33 +4,37 @@
  */
 package projet.mobile.kotlin.fitsv.ui.screens
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import projet.mobile.kotlin.fitsv.FitSVApplication
 import projet.mobile.kotlin.fitsv.FitSVApplication.Companion.homeScreenText
 import projet.mobile.kotlin.fitsv.ui.util.WindowSize
 import projet.mobile.kotlin.fitsv.ui.util.WindowType
 import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 import projet.mobile.kotlin.fitsv.ui.viewModel.HomeViewModel
-import projet.mobile.kotlin.fitsv.ui.viewModel.login.LoginViewModel
 
 /**
  * Function used to define UI of the HomeScreen
  */
 @Composable
-fun HomeScreen(windowSize: WindowSize, homeViewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    windowSize: WindowSize,
+    homeViewModel: HomeViewModel = hiltViewModel(),
+) {
 
     Column {
         Box(
@@ -58,7 +62,7 @@ fun HomeScreen(windowSize: WindowSize, homeViewModel: HomeViewModel = hiltViewMo
                     }
                 )
                 val isDark = homeViewModel.isDark
-                val nbStep = homeViewModel.nbSteps
+                val nbStep = homeViewModel.steps
                 Text(
                     text =  "Number of step $nbStep",
                     color = if (isDark) Color.Red else Color.Blue

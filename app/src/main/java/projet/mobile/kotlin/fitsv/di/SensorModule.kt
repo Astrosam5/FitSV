@@ -10,8 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import projet.mobile.kotlin.fitsv.data.sensors.LightSensor
-import projet.mobile.kotlin.fitsv.data.sensors.MeasurableSensor
-import projet.mobile.kotlin.fitsv.data.sensors.StepSensor
+import projet.mobile.kotlin.fitsv.data.sensors.StepCounterSensor
 import javax.inject.Singleton
 
 @Module
@@ -27,7 +26,7 @@ object SensorModule {
 
     @Provides
     @Singleton
-    fun provideStepSensor(app: Application): StepSensor {
-        return StepSensor(app)
+    fun provideStepSensor(app: Application): StepCounterSensor {
+        return StepCounterSensor(app)
     }
 }

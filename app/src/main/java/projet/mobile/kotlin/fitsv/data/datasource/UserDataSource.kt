@@ -4,6 +4,7 @@
  */
 package projet.mobile.kotlin.fitsv.data.datasource
 
+import kotlinx.coroutines.flow.Flow
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 import retrofit2.Response
 
@@ -20,4 +21,6 @@ interface UserDataSource {
 
     suspend fun deleteAllUserFromDB()
     suspend fun addUserAPI(user: UserModel)
+
+    suspend fun getUserStepsFromDB(): Flow<Int>
 }
