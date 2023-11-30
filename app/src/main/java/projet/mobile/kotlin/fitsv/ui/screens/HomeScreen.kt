@@ -62,7 +62,8 @@ fun HomeScreen(
                     }
                 )
                 val isDark = homeViewModel.isDark
-                val nbStep = homeViewModel.steps
+                val nbStep = 0 // FIXME
+
                 Text(
                     text =  "Number of step $nbStep",
                     color = if (isDark) Color.Red else Color.Blue

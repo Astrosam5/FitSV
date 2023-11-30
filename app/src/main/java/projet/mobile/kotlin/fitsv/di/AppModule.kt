@@ -12,11 +12,16 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import projet.mobile.kotlin.fitsv.data.datasource.StepCounterDataSource
+import projet.mobile.kotlin.fitsv.data.datasource.StepCounterDataSourceImp
 import projet.mobile.kotlin.fitsv.data.source.remote.UserApi
 import projet.mobile.kotlin.fitsv.data.datasource.UserDataSource
 import projet.mobile.kotlin.fitsv.data.datasource.UserDataSourceImp
 import projet.mobile.kotlin.fitsv.data.source.local.AppDatabase
+import projet.mobile.kotlin.fitsv.data.source.local.StepCounterDao
 import projet.mobile.kotlin.fitsv.data.source.local.UserDao
+import projet.mobile.kotlin.fitsv.data.source.remote.StepCounterApi
+import projet.mobile.kotlin.fitsv.domain.repository.StepCounterRepository
 import projet.mobile.kotlin.fitsv.domain.repository.UserRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -72,6 +77,12 @@ object AppModule {
         return retrofit.create(UserApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideStepCounterApiInterface(retrofit: Retrofit) : StepCounterApi {
+        return retrofit.create(StepCounterApi::class.java)
+    }
+
 
     // --------------------------------- Function for DAO ---------------------------------
 
@@ -92,12 +103,25 @@ object AppModule {
         return appDatabase.userDao()
     }
 
+    @Provides
+    @Singleton
+    fun provideStepCounterDao(appDatabase: AppDatabase): StepCounterDao {
+        return appDatabase.stepCounterDao()
+    }
+
     // --------------------------------- DataSource ---------------------------------
 
     @Provides
     @Singleton
     fun provideUserDataSource(userApi: UserApi, userDao: UserDao) : UserDataSource {
         return UserDataSourceImp(userApi, userDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideStepCounterDataSource(stepCounterApi: StepCounterApi,
+                                     stepCounterDao: StepCounterDao) : StepCounterDataSourceImp {
+        return StepCounterDataSourceImp(stepCounterApi, stepCounterDao)
     }
 
     // --------------------------------- Repository ---------------------------------
@@ -108,5 +132,10 @@ object AppModule {
         return UserRepository(userDataSource)
     }
 
+    @Provides
+    @Singleton
+    fun provideStepCounterRepository(stepCounterDataSource: StepCounterDataSource) : StepCounterRepository {
+        return StepCounterRepository(stepCounterDataSource)
+    }
 
 }

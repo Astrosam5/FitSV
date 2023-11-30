@@ -25,6 +25,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
 import projet.mobile.kotlin.fitsv.R
+import projet.mobile.kotlin.fitsv.data.source.local.StepCounterDao
+import projet.mobile.kotlin.fitsv.domain.model.StepCounterModel
 
 /**
  * Class HardwareStepCounterSource
@@ -36,6 +38,7 @@ import projet.mobile.kotlin.fitsv.R
 class HardwareStepCounterSource @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted workerParams: WorkerParameters,
+//    private val stepCounterDao: StepCounterDao
 ): SensorEventListener, CoroutineWorker(context, workerParams) {
 
     init {
@@ -55,6 +58,7 @@ class HardwareStepCounterSource @AssistedInject constructor(
         Log.d("HardwareStepCounterSource", "on sensor changed called")
         event?.also {
             if (baseStepNumber == null) {
+                Log.d("HardwareStepCounterSource", "baseStepNumber Null")
                 baseStepNumber = it.values[0].toInt()
             }
             numberOfStep += (it.values[0].toInt() - baseStepNumber!!)
@@ -62,23 +66,25 @@ class HardwareStepCounterSource @AssistedInject constructor(
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        Log.d("HardwareStepCounterSource", "on accuracy changed called")
-        // TODO uniquemet quand precision peut changer (ex: localisation)
+        return // Do nothing
     }
 
-    // DoWork est une co routine donc plusieur doWork peuvent se lacesr en meme temps
     override suspend fun doWork(): Result {
         Log.d("HardwareStepCounterSource", "doWork called")
         if (stepCounterSensor == null) {
+            Log.d("HardwareStepCounterSource", "stepCounterSensor null")
             return Result.failure()
         }
+        Log.d("HardwareStepCounterSource", "stepCounterSensor not null")
+
+//        stepCounterDao.insert(StepCounterModel(0, steps = numberOfStep))
 
         sensorManager.registerListener(this,
             stepCounterSensor,
             SensorManager.SENSOR_DELAY_NORMAL)
 
-        setForeground(getForegroundInfo())
-        update()
+//        setForeground(getForegroundInfo())
+//        update()
         return Result.success()
     }
 
@@ -86,6 +92,7 @@ class HardwareStepCounterSource @AssistedInject constructor(
         Log.d("HardwareStepCounterSource", "update called")
         while (!isStopped) {
             delay(5000) // attente de 5s
+
             setForeground(createForegroundInfo())
         }
     }
@@ -99,16 +106,16 @@ class HardwareStepCounterSource @AssistedInject constructor(
     private fun createForegroundInfo(): ForegroundInfo {
         Log.d("HardwareStepCounterSource", "createForegroundInfo called")
         val title = "Steps"
-        val channelId = "projet.mobile.kotlin.exemplecour9.STEP_CHANNEL_ID"
+        val channelId = "projet.mobile.kotlin.fitsv.STEP_CHANNEL_ID"
 
 
-        var notificationBuilder: NotificationCompat.Builder
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createChanel(channelId)
-            notificationBuilder = NotificationCompat.Builder(context, channelId)
-        } else {
-            notificationBuilder = NotificationCompat.Builder(context)
-        }
+        var notificationBuilder: NotificationCompat.Builder =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                createChanel(channelId)
+                NotificationCompat.Builder(context, channelId)
+            } else {
+                NotificationCompat. Builder(context)
+            }
 
         val notification = notificationBuilder
             .setContentTitle(title)

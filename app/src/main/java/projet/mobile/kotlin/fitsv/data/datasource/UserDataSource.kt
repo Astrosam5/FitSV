@@ -22,5 +22,4 @@ interface UserDataSource {
     suspend fun deleteAllUserFromDB()
     suspend fun addUserAPI(user: UserModel)
 
-    suspend fun getUserStepsFromDB(): Flow<Int>
 }

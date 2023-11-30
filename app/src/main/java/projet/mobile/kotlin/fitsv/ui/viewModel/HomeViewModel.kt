@@ -35,35 +35,10 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
 
 
-
-    private var _nbSteps by mutableIntStateOf(0)
-
-    /**
-     * All saved bankrolls
-     */
-    val steps : Int
-        get() = _nbSteps
-
-    /**
-     * Load all saved bankrolls.
-     */
-    fun loadSteps() {
-        viewModelScope.launch(Dispatchers.IO) {
-            getStep().collect {
-                _nbSteps = it
-            }
-        }
-    }
-
-    /**
-     * Get all saved dates.
-     */
-    private fun getStep(): Flow<Int> = userDao.getUserSteps()
-
     /**
      * Run the worker once time.
      */
-    fun addDateOnceWorker(context: Context) {
+    fun addStepOnceWorker(context: Context) {
         val workRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>().build()
         WorkManager.getInstance(context).enqueue(workRequest)
     }

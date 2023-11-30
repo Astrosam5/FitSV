@@ -47,15 +47,18 @@ class MainActivity : ComponentActivity() {
         val constraint = Constraints.Builder()
             .build()
 
-        val stepWorkerRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>()
-            .setConstraints(constraint)
-            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST) // Lance service tout de suite
-            .build()
+//        val stepWorkerRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>()
+//            .setConstraints(constraint)
+//            .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST) // Lance service tout de suite
+//            .build()
+//
+//        WorkManager.getInstance(applicationContext)
+//            .enqueueUniqueWork("step_counter",
+//                ExistingWorkPolicy.KEEP,
+//                stepWorkerRequest)
 
-        WorkManager.getInstance(applicationContext)
-            .enqueueUniqueWork("step_counter",
-                ExistingWorkPolicy.KEEP,
-                stepWorkerRequest)
+        val workRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>().build()
+        WorkManager.getInstance(applicationContext).enqueue(workRequest)
     }
 
 }

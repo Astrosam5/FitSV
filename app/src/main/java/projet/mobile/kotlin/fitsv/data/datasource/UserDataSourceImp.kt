@@ -36,8 +36,4 @@ class UserDataSourceImp @Inject constructor(
     override suspend fun addUserAPI(user: UserModel) {
         return userApi.newUser(user)
     }
-
-    override suspend fun getUserStepsFromDB(): Flow<Int> {
-        return userDao.getUserSteps()
-    }
 }

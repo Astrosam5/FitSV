@@ -256,8 +256,8 @@ fun SingUpColumn(
                     val newUser = UserModel(
                         name=usernameText.trim().lowercase(),
                         password=passwordText.trim(),
-                        id=ObjectId(""),
-                        steps=0)
+                        id=ObjectId("")
+                    )
                     // add user to API
                     singUpViewModel.addUserOnAPI(newUser)
                     singUpViewModel.saveUserToDB(newUser)

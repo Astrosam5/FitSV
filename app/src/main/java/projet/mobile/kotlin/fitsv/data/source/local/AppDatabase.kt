@@ -9,6 +9,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import projet.mobile.kotlin.fitsv.domain.model.StepCounterModel
 import projet.mobile.kotlin.fitsv.domain.model.TypeConverterObjectID
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 
@@ -19,7 +20,7 @@ import projet.mobile.kotlin.fitsv.domain.model.UserModel
  * @author Valentin Ayroles
  */
 @TypeConverters(TypeConverterObjectID::class)
-@Database(entities = [UserModel::class], version = 1, exportSchema = false)
+@Database(entities = [UserModel::class, StepCounterModel::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -38,4 +39,6 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
     abstract fun userDao(): UserDao
+
+    abstract fun stepCounterDao(): StepCounterDao
 }

@@ -10,6 +10,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import projet.mobile.kotlin.fitsv.domain.model.StepCounterModel
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 
 /**
@@ -19,18 +20,11 @@ import projet.mobile.kotlin.fitsv.domain.model.UserModel
  * @author Valentin Ayroles
  */
 @Dao
-interface UserDao {
+interface StepCounterDao {
 
-    @Query("SELECT * FROM user")
-    fun getAllUser(): LiveData<List<UserModel>>
+    @Query("SELECT * FROM stepCounter")
+    fun getAllStepCounter(): Flow<List<StepCounterModel>>
 
     @Insert
-    fun insertUser(vararg users: UserModel)
-
-    @Delete
-    fun delete(user: UserModel)
-
-    @Query("DELETE FROM user")
-    fun deleteAllUser()
-
+    suspend fun insert(steps: StepCounterModel)
 }
