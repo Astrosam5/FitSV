@@ -23,10 +23,13 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.data.source.local.StepCounterDao
 import projet.mobile.kotlin.fitsv.domain.model.StepCounterModel
+import javax.inject.Inject
 
 /**
  * Class HardwareStepCounterSource
@@ -36,9 +39,9 @@ import projet.mobile.kotlin.fitsv.domain.model.StepCounterModel
  */
 @HiltWorker
 class HardwareStepCounterSource @AssistedInject constructor(
-    @Assisted private val context: Context,
-    @Assisted workerParams: WorkerParameters,
-//    private val stepCounterDao: StepCounterDao
+    private val stepCounterDao: StepCounterDao,
+    @Assisted context: Context,
+    @Assisted workerParams: WorkerParameters
 ): SensorEventListener, CoroutineWorker(context, workerParams) {
 
     init {
@@ -70,6 +73,9 @@ class HardwareStepCounterSource @AssistedInject constructor(
     }
 
     override suspend fun doWork(): Result {
+        withContext(Dispatchers.IO){
+
+        }
         Log.d("HardwareStepCounterSource", "doWork called")
         if (stepCounterSensor == null) {
             Log.d("HardwareStepCounterSource", "stepCounterSensor null")
@@ -82,9 +88,9 @@ class HardwareStepCounterSource @AssistedInject constructor(
         sensorManager.registerListener(this,
             stepCounterSensor,
             SensorManager.SENSOR_DELAY_NORMAL)
+        setForeground(getForegroundInfo())
 
-//        setForeground(getForegroundInfo())
-//        update()
+        update()
         return Result.success()
     }
 
@@ -99,8 +105,8 @@ class HardwareStepCounterSource @AssistedInject constructor(
 
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
-        Log.d("HardwareStepCounterSource", "getForegroundInfo called")
-        return createForegroundInfo()
+            Log.d("HardwareStepCounterSource", "getForegroundInfo called")
+            return createForegroundInfo()
     }
 
     private fun createForegroundInfo(): ForegroundInfo {
@@ -111,15 +117,16 @@ class HardwareStepCounterSource @AssistedInject constructor(
 
         var notificationBuilder: NotificationCompat.Builder =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                createChanel(channelId)
-                NotificationCompat.Builder(context, channelId)
+                createChanel(channelId, applicationContext)
+                NotificationCompat.Builder(applicationContext, channelId)
             } else {
-                NotificationCompat. Builder(context)
+                NotificationCompat. Builder(applicationContext)
             }
 
         val notification = notificationBuilder
             .setContentTitle(title)
             .setTicker(title)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentText("$numberOfStep")
             .setOngoing(true)
             .setForegroundServiceBehavior(Notification.FOREGROUND_SERVICE_IMMEDIATE) // lance notif dés que build
@@ -131,7 +138,7 @@ class HardwareStepCounterSource @AssistedInject constructor(
 
     }
 
-    private fun createChanel(chanelId: String) {
+    private fun createChanel(chanelId: String, context: Context) {
         Log.d("HardwareStepCounterSource", "createChanel called")
         val name = context.getString(R.string.stepChanelName)
         val descriptionText = context.getString(R.string.stepChanelDesc)

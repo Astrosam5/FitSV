@@ -86,25 +86,23 @@ object AppModule {
 
     // --------------------------------- Function for DAO ---------------------------------
 
-    @Provides
-    fun getContext(@ApplicationContext context: Context,): Context {
-        return context
-    }
+//    @Provides
+//    fun getContext(@ApplicationContext context: Context,): Context {
+//        return context
+//    }
 
     @Provides
     @Singleton
-    fun provideAppDatabase(context: Context): AppDatabase {
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return AppDatabase.getAppDBInstance(context)
     }
 
     @Provides
-    @Singleton
     fun provideUserDao(appDatabase: AppDatabase): UserDao {
         return appDatabase.userDao()
     }
 
     @Provides
-    @Singleton
     fun provideStepCounterDao(appDatabase: AppDatabase): StepCounterDao {
         return appDatabase.stepCounterDao()
     }

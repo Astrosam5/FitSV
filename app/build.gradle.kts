@@ -55,7 +55,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
     implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
     implementation("androidx.work:work-runtime-ktx:2.8.1")
-    implementation("androidx.hilt:hilt-work:1.1.0")
+    implementation("androidx.hilt:hilt-work:1.0.0")
 
 
     // Room implementation with KSP
@@ -66,8 +66,9 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    ksp("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("com.google.dagger:hilt-android:2.45")
+    ksp("com.google.dagger:hilt-android-compiler:2.45")
+    ksp("androidx.hilt:hilt-compiler:1.0.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     // Retrofit (include okhttp)

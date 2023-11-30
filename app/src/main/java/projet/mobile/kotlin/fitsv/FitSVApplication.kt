@@ -4,6 +4,7 @@
  */
 package projet.mobile.kotlin.fitsv
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
@@ -23,7 +24,12 @@ import javax.inject.Inject
 class FitSVApplication : Application(), Configuration.Provider  {
 
     @Inject
-    lateinit var hiltWorkerFactory: HiltWorkerFactory
+    lateinit var workerFactory: HiltWorkerFactory
+
+    @SuppressLint("RestrictedApi")
+    override fun getWorkManagerConfiguration() =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory).build()
 
     override fun onCreate() {
         super.onCreate()
@@ -35,11 +41,5 @@ class FitSVApplication : Application(), Configuration.Provider  {
         var loginState: LoginState = LoginState()
         var homeScreenText: String = "HOME"
 
-    }
-
-    override fun getWorkManagerConfiguration(): Configuration {
-        return Configuration.Builder()
-            .setWorkerFactory(hiltWorkerFactory)
-            .build()
     }
 }
