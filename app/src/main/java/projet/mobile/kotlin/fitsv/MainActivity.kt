@@ -4,19 +4,15 @@
  */
 package projet.mobile.kotlin.fitsv
 
+//import projet.mobile.kotlin.fitsv.data.sensors.HardwareStepCounterSource
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.work.Constraints
-import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.OutOfQuotaPolicy
-import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
-import projet.mobile.kotlin.fitsv.data.sensors.HardwareStepCounterSource
-import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 import projet.mobile.kotlin.fitsv.ui.theme.BottomNavBarDemoTheme
 import projet.mobile.kotlin.fitsv.ui.util.Navigation
+import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 
 /**
  * Class MainActivity
@@ -57,8 +53,11 @@ class MainActivity : ComponentActivity() {
 //                ExistingWorkPolicy.KEEP,
 //                stepWorkerRequest)
 
-        val workRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>().build()
-        WorkManager.getInstance(applicationContext).enqueue(workRequest)
+//        val workRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>().build()
+//        WorkManager.getInstance(applicationContext).enqueue(workRequest)
     }
 
 }
+
+
+

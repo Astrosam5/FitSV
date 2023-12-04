@@ -6,28 +6,33 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <!-- Sensor for stepCounters -->
-    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_HEALTH"/>
-    <uses-permission-sdk-23 android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"/>
-    <uses-permission-sdk-23 android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Sensor for stepCounters -->
+    <uses-permission-sdk-23 android:name="android.permission.BODY_SENSORS" />
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
+    <uses-permission-sdk-23 android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+    <uses-permission-sdk-23 android:name="android.permission.ACTIVITY_RECOGNITION" />
 
     <application
-        android:networkSecurityConfig="@xml/network_security_config"
         android:name=".FitSVApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitSV"
         tools:targetApi="31">
+        <activity
+            android:name=".SignInActivity"
+            android:exported="false"
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/Theme.FitSV" />
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
@@ -38,20 +43,22 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
         </provider>
+
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
             android:label="@string/title_activity_splash_screen"
-            android:theme="@style/Theme.FitSV" >
+            android:theme="@style/Theme.FitSV">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.FitSV"/>
+            android:theme="@style/Theme.FitSV" />
     </application>
 
 </manifest>

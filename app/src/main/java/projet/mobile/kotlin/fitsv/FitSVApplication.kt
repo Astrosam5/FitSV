@@ -21,15 +21,15 @@ import javax.inject.Inject
  */
 
 @HiltAndroidApp
-class FitSVApplication : Application(), Configuration.Provider  {
+class FitSVApplication : Application()  {
 
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
-
-    @SuppressLint("RestrictedApi")
-    override fun getWorkManagerConfiguration() =
-        Configuration.Builder()
-            .setWorkerFactory(workerFactory).build()
+//    @Inject
+//    lateinit var workerFactory: HiltWorkerFactory
+//
+//    @SuppressLint("RestrictedApi")
+//    override fun getWorkManagerConfiguration() =
+//        Configuration.Builder()
+//            .setWorkerFactory(workerFactory).build()
 
     override fun onCreate() {
         super.onCreate()

@@ -17,7 +17,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import projet.mobile.kotlin.fitsv.data.sensors.HardwareStepCounterSource
+//import projet.mobile.kotlin.fitsv.data.sensors.HardwareStepCounterSource
 import projet.mobile.kotlin.fitsv.data.sensors.LightSensor
 import projet.mobile.kotlin.fitsv.data.source.local.UserDao
 import javax.inject.Inject
@@ -35,13 +35,13 @@ class HomeViewModel @Inject constructor(
 ): ViewModel() {
 
 
-    /**
-     * Run the worker once time.
-     */
-    fun addStepOnceWorker(context: Context) {
-        val workRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>().build()
-        WorkManager.getInstance(context).enqueue(workRequest)
-    }
+//    /**
+//     * Run the worker once time.
+//     */
+//    fun addStepOnceWorker(context: Context) {
+//        val workRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>().build()
+//        WorkManager.getInstance(context).enqueue(workRequest)
+//    }
     
 
     var isDark by mutableStateOf(false)

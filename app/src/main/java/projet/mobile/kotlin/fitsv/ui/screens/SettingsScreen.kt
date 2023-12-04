@@ -5,6 +5,7 @@
 package projet.mobile.kotlin.fitsv.ui.screens
 
 import android.Manifest
+import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -17,13 +18,19 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -32,8 +39,11 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import projet.mobile.kotlin.fitsv.FitSVApplication
 import projet.mobile.kotlin.fitsv.R
+import projet.mobile.kotlin.fitsv.SignInActivity
 import projet.mobile.kotlin.fitsv.ui.util.WindowSize
 import projet.mobile.kotlin.fitsv.ui.util.WindowType
 import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
@@ -49,7 +59,13 @@ fun SettingsScreen(
     settingViewModel: SettingsViewModel = hiltViewModel()
 ) {
 
-    Column {
+    if (!IsLoggedIn()){
+        Logging()
+        return
+    }
+
+
+    /*Column {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -88,10 +104,42 @@ fun SettingsScreen(
                 }
             }
         }
-    }
+    }*/
 
 }
 
+fun IsLoggedIn() = Firebase.auth.currentUser != null
+
+@Composable
+fun Logging(modifier: Modifier = Modifier) {
+    var loggedIn by remember { mutableStateOf(IsLoggedIn()) }
+
+    val mContext = LocalContext.current
+
+    if(loggedIn){
+        val name = Firebase.auth.currentUser!!.displayName
+        Column(modifier = Modifier.fillMaxSize()){
+            Text(
+                text = "Hello $name!",
+                modifier = modifier
+            )
+
+            Button(onClick = {
+                Firebase.auth.signOut()
+                loggedIn = IsLoggedIn()
+            }) {
+                Text(text = "Sign Out")
+            }
+        }
+    } else {
+        Button(onClick = {
+            mContext.startActivity(Intent(mContext, SignInActivity::class.java))
+        }) {
+            Text(text = "Sign In")
+        }
+    }
+}
+/*
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun add_picture() {
@@ -131,4 +179,4 @@ fun SettingsScreenPreview(windowSize: WindowSize = rememberWindowSize()) {
         windowSize = windowSize,
         onNavigateToLogin = { navController.navigate("login")}
     )
-}
+}*/
