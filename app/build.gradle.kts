@@ -51,10 +51,10 @@ android {
 dependencies {
 
 
-    val kotlinVersion = "1.8.10"
-    val composeVersion = "1.4.2"
-    val activityComposeVersion = "1.7.1"
-    val hiltVersion="2.45"
+    val kotlinVersion = "1.12.0"
+    val composeVersion = "1.5.4"
+    val activityComposeVersion = "1.8.0"
+    val hiltVersion="2.48"
     val navComposeVersion = "1.0.0"
     val roomVersion = "2.5.1"
     val workVersion = "2.7.1"
@@ -90,7 +90,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
     implementation("androidx.core:core-ktx:$kotlinVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
