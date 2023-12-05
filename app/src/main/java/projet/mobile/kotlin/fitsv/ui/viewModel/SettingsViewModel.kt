@@ -22,16 +22,4 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor() : ViewModel() {
 
-    private var addPicture by mutableStateOf(false)
-
-
-    fun openAddPicture() {
-        addPicture = true
-    }
-
-    fun isOpenAddPicture(): Boolean {
-        return addPicture
-    }
-
-
 }

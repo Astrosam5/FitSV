@@ -23,10 +23,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.wear.compose.material.ContentAlpha
-import projet.mobile.kotlin.fitsv.ui.screens.login.LoginScreen
-import projet.mobile.kotlin.fitsv.ui.screens.login.SingUpScreen
 import projet.mobile.kotlin.fitsv.ui.routes.BottomBarRoutes
-import projet.mobile.kotlin.fitsv.ui.routes.SettingsRoutes
 import projet.mobile.kotlin.fitsv.ui.screens.HomeScreen
 import projet.mobile.kotlin.fitsv.ui.screens.ProgramsScreen
 import projet.mobile.kotlin.fitsv.ui.screens.SettingsScreen
@@ -69,17 +66,7 @@ fun Navigation(windowSize: WindowSize) {
             composable(route = BottomBarRoutes.Settings.route) {
                 SettingsScreen(
                     windowSize = windowSize,
-                    onNavigateToLogin = { navController.navigate(SettingsRoutes.Login.route)}
                 )
-            }
-            composable(route=SettingsRoutes.Login.route) {
-                LoginScreen(
-                    onNavigateToSingUp = {navController.navigate(SettingsRoutes.SingUp.route)},
-                    onNavigateToHomeScreen = { navController.navigate(BottomBarRoutes.Home.route)}
-                )
-            }
-            composable(route = SettingsRoutes.SingUp.route) {
-                SingUpScreen(onNavigateToHomeScreen = {navController.navigate(BottomBarRoutes.Home.route)})
             }
         }
     }
