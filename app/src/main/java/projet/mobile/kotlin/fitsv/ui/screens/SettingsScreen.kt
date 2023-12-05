@@ -44,6 +44,7 @@ import com.google.firebase.auth.auth
 import projet.mobile.kotlin.fitsv.FitSVApplication
 import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.SignInActivity
+import projet.mobile.kotlin.fitsv.ui.theme.FitSVTheme
 import projet.mobile.kotlin.fitsv.ui.util.WindowSize
 import projet.mobile.kotlin.fitsv.ui.util.WindowType
 import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
@@ -55,17 +56,9 @@ import projet.mobile.kotlin.fitsv.ui.viewModel.SettingsViewModel
 @Composable
 fun SettingsScreen(
     windowSize: WindowSize,
-    onNavigateToLogin: () -> Unit,
     settingViewModel: SettingsViewModel = hiltViewModel()
 ) {
-
-    if (!IsLoggedIn()){
-        Logging()
-        return
-    }
-
-
-    /*Column {
+    FitSVTheme {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -90,22 +83,10 @@ fun SettingsScreen(
                         WindowType.Expanded -> Color.Blue
                     }
                 )
-                if (!FitSVApplication.loginState.logged) {
-                    Button(onClick = onNavigateToLogin) {
-                        Text(text = stringResource(R.string.login))
-                    }
-                } else {
-                    Button(onClick = { settingViewModel.openAddPicture() }) {
-                        Text(text = stringResource(R.string.add_picture))
-                    }
-                    if (settingViewModel.isOpenAddPicture()) {
-                        add_picture()
-                    }
-                }
+                Logging()
             }
         }
-    }*/
-
+    }
 }
 
 fun IsLoggedIn() = Firebase.auth.currentUser != null
@@ -118,51 +99,22 @@ fun Logging(modifier: Modifier = Modifier) {
 
     if(loggedIn){
         val name = Firebase.auth.currentUser!!.displayName
-        Column(modifier = Modifier.fillMaxSize()){
-            Text(
-                text = "Hello $name!",
-                modifier = modifier
-            )
+        Text(
+            text = "Hello $name!",
+            modifier = modifier
+        )
 
-            Button(onClick = {
-                Firebase.auth.signOut()
-                loggedIn = IsLoggedIn()
-            }) {
-                Text(text = "Sign Out")
-            }
+        Button(onClick = {
+            Firebase.auth.signOut()
+            loggedIn = IsLoggedIn()
+        }) {
+            Text(text = "Sign Out")
         }
     } else {
         Button(onClick = {
             mContext.startActivity(Intent(mContext, SignInActivity::class.java))
         }) {
             Text(text = "Sign In")
-        }
-    }
-}
-/*
-@OptIn(ExperimentalPermissionsApi::class)
-@Composable
-fun add_picture() {
-    val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
-
-    if (cameraPermissionState.status.isGranted) {
-        Text("Camera permission Granted")
-    } else {
-        Column {
-            val textToShow = if (cameraPermissionState.status.shouldShowRationale) {
-                "The camera is important for this app. Please grant the permission."
-            } else {
-                "Camera not available"
-            }
-
-            Text(textToShow)
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Button(onClick = {
-                cameraPermissionState.launchPermissionRequest()  // TODO see why don't work
-            }) {
-                Text("Request permission")
-            }
         }
     }
 }
@@ -177,6 +129,5 @@ fun SettingsScreenPreview(windowSize: WindowSize = rememberWindowSize()) {
 
     SettingsScreen(
         windowSize = windowSize,
-        onNavigateToLogin = { navController.navigate("login")}
     )
-}*/
+}
