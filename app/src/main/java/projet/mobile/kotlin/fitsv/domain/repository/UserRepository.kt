@@ -4,17 +4,16 @@
  */
 package projet.mobile.kotlin.fitsv.domain.repository
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import projet.mobile.kotlin.fitsv.data.datasource.UserDataSource
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 import projet.mobile.kotlin.fitsv.ui.states.ResourcesState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import javax.inject.Inject
 
 /**
  * Interface MyRepository
- * TODO Comment use case of interface MyRepository
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

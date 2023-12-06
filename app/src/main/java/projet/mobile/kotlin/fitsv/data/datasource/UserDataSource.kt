@@ -4,13 +4,11 @@
  */
 package projet.mobile.kotlin.fitsv.data.datasource
 
-import kotlinx.coroutines.flow.Flow
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
 import retrofit2.Response
 
 /**
  * Interface UserDataSource
- * TODO Comment use case of interface UserDataSource
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

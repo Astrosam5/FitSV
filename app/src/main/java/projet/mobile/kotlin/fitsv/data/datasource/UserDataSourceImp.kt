@@ -4,7 +4,6 @@
  */
 package projet.mobile.kotlin.fitsv.data.datasource
 
-import kotlinx.coroutines.flow.Flow
 import projet.mobile.kotlin.fitsv.data.source.local.UserDao
 import projet.mobile.kotlin.fitsv.data.source.remote.UserApi
 import projet.mobile.kotlin.fitsv.domain.model.UserModel
@@ -13,7 +12,6 @@ import javax.inject.Inject
 
 /**
  * Class UserDataSourceImp
- * TODO Comment use case of class UserDataSourceImp
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

@@ -15,7 +15,6 @@ import projet.mobile.kotlin.fitsv.domain.model.UserModel
 
 /**
  * Class AppDatabase
- * TODO Comment use case of class AppDatabase
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

@@ -14,13 +14,13 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import projet.mobile.kotlin.fitsv.data.datasource.StepCounterDataSource
 import projet.mobile.kotlin.fitsv.data.datasource.StepCounterDataSourceImp
-import projet.mobile.kotlin.fitsv.data.source.remote.UserApi
 import projet.mobile.kotlin.fitsv.data.datasource.UserDataSource
 import projet.mobile.kotlin.fitsv.data.datasource.UserDataSourceImp
 import projet.mobile.kotlin.fitsv.data.source.local.AppDatabase
 import projet.mobile.kotlin.fitsv.data.source.local.StepCounterDao
 import projet.mobile.kotlin.fitsv.data.source.local.UserDao
 import projet.mobile.kotlin.fitsv.data.source.remote.StepCounterApi
+import projet.mobile.kotlin.fitsv.data.source.remote.UserApi
 import projet.mobile.kotlin.fitsv.domain.repository.StepCounterRepository
 import projet.mobile.kotlin.fitsv.domain.repository.UserRepository
 import retrofit2.Retrofit
@@ -31,7 +31,6 @@ import javax.inject.Singleton
 
 /**
  * Class AppModule
- * TODO Comment use case of class AppModule
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

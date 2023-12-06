@@ -8,7 +8,6 @@ import projet.mobile.kotlin.fitsv.domain.model.UserModel
 
 /**
  * Class LoginState
- * TODO Comment use case of class LoginState
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 /**
  * Class HomeViewModel
- * TODO Comment use case of class HomeViewModel
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

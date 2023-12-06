@@ -12,7 +12,6 @@ import retrofit2.http.Path
 
 /**
  * Interface UserApiInterface
- * TODO Comment use case of interface UserApiInterface
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

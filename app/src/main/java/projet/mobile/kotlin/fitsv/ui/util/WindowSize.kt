@@ -2,6 +2,7 @@ package projet.mobile.kotlin.fitsv.ui.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
@@ -17,10 +18,10 @@ enum class WindowType { Compact, Medium, Expanded }
 fun rememberWindowSize(): WindowSize {
     val configuration = LocalConfiguration.current
     val screenWidth by remember(key1 = configuration) {
-        mutableStateOf(configuration.screenWidthDp)
+        mutableIntStateOf(configuration.screenWidthDp)
     }
     val screenHeight by remember(key1 = configuration) {
-        mutableStateOf(configuration.screenHeightDp)
+        mutableIntStateOf(configuration.screenHeightDp)
     }
 
     return WindowSize(

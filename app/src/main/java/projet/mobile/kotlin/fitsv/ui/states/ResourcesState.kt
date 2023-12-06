@@ -6,7 +6,6 @@ package projet.mobile.kotlin.fitsv.ui.states
 
 /**
  * Class RessourcesState
- * TODO Comment use case of class RessourcesState
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

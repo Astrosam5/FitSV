@@ -4,18 +4,14 @@
  */
 package projet.mobile.kotlin.fitsv.data.source.local
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import projet.mobile.kotlin.fitsv.domain.model.StepCounterModel
-import projet.mobile.kotlin.fitsv.domain.model.UserModel
 
 /**
  * Interface UserDao
- * TODO Comment use case of interface UserDao
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */

@@ -4,14 +4,10 @@
  */
 package projet.mobile.kotlin.fitsv
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
 import projet.mobile.kotlin.fitsv.ui.states.LoginState
-import javax.inject.Inject
 
 /**
  * Class FitSVApplication

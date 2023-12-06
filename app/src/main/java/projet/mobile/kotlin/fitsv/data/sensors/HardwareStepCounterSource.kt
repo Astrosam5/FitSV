@@ -8,7 +8,6 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -21,19 +20,14 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.data.source.local.StepCounterDao
-import projet.mobile.kotlin.fitsv.domain.model.StepCounterModel
-import javax.inject.Inject
 
 /**
  * Class HardwareStepCounterSource
- * TODO Comment use case of class HardwareStepCounterSource
  * @author Samuel Albareda Zumelzu
  * @author Valentin Ayroles
  */
