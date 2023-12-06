@@ -54,6 +54,8 @@ android {
 dependencies {
 
 
+    implementation("com.google.firebase:firebase-messaging-ktx:23.3.1")
+    implementation("com.google.firebase:firebase-messaging:23.3.1")
     val kotlinVersion = "1.12.0"
     val composeVersion = "1.5.4"
     val activityComposeVersion = "1.8.0"
@@ -75,6 +77,9 @@ dependencies {
     //Firebase UI Library
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
     implementation("com.firebaseui:firebase-ui-database:8.0.2")
+    //Firebase In-App Messaging
+    implementation("com.google.firebase:firebase-inappmessaging-display")
+    implementation("com.google.firebase:firebase-analytics")
     // AppCompat
     implementation("androidx.appcompat:appcompat:1.6.1")
 

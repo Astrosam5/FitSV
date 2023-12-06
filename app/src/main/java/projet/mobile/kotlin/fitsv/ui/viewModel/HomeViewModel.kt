@@ -4,22 +4,13 @@
  */
 package projet.mobile.kotlin.fitsv.ui.viewModel
 
-import android.content.Context
+//import projet.mobile.kotlin.fitsv.data.sensors.HardwareStepCounterSource
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-//import projet.mobile.kotlin.fitsv.data.sensors.HardwareStepCounterSource
 import projet.mobile.kotlin.fitsv.data.sensors.LightSensor
-import projet.mobile.kotlin.fitsv.data.source.local.UserDao
 import javax.inject.Inject
 
 /**
@@ -30,19 +21,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val lightSensor: LightSensor,
-    private val userDao: UserDao
+    lightSensor: LightSensor,
 ): ViewModel() {
 
-
-//    /**
-//     * Run the worker once time.
-//     */
-//    fun addStepOnceWorker(context: Context) {
-//        val workRequest = OneTimeWorkRequestBuilder<HardwareStepCounterSource>().build()
-//        WorkManager.getInstance(context).enqueue(workRequest)
-//    }
-    
 
     var isDark by mutableStateOf(false)
 
