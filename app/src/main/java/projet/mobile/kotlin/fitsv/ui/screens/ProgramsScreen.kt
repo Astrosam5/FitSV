@@ -5,18 +5,24 @@
 package projet.mobile.kotlin.fitsv.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
+import projet.mobile.kotlin.fitsv.MyNotification
 import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.ui.util.WindowSize
 import projet.mobile.kotlin.fitsv.ui.util.WindowType
@@ -27,6 +33,8 @@ import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
  */
 @Composable
 fun ProgramsScreen(windowSize: WindowSize) {
+
+    val mContext = LocalContext.current
 
     Column {
         Box(
@@ -52,6 +60,18 @@ fun ProgramsScreen(windowSize: WindowSize) {
                         WindowType.Expanded -> Color.Blue
                     }
             )
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        OutlinedButton(onClick = {
+            val notish = MyNotification(mContext, "FCM", "This is Notification for FCM testing")
+            notish.FirNotification()
+        }) {
+            Text(text = "Fire Notification", fontSize = 16.sp)
         }
     }
 }
