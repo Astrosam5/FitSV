@@ -4,6 +4,9 @@
  */
 package projet.mobile.kotlin.fitsv.ui.screens
 
+import android.Manifest
+import android.os.Build
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import projet.mobile.kotlin.fitsv.MyNotification
 import projet.mobile.kotlin.fitsv.R
 import projet.mobile.kotlin.fitsv.ui.util.WindowSize
@@ -31,47 +37,65 @@ import projet.mobile.kotlin.fitsv.ui.util.rememberWindowSize
 /**
  * Function used to define UI of the ProgramsScreen
  */
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ProgramsScreen(windowSize: WindowSize) {
 
     val mContext = LocalContext.current
 
-    Column {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    when (windowSize.width) {
-                        WindowType.Compact -> Color.White
-                        WindowType.Medium -> Color.Black
-                        WindowType.Expanded -> Color.Yellow
-                    }
-                ),
-            contentAlignment = Alignment.Center
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                when (windowSize.width) {
+                    WindowType.Compact -> Color.White
+                    WindowType.Medium -> Color.Black
+                    WindowType.Expanded -> Color.Yellow
+                }
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Column (
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = stringResource(R.string.programs),
                 fontSize = MaterialTheme.typography.displayMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 color =
-                    when (windowSize.width) {
-                        WindowType.Compact -> Color.Black
-                        WindowType.Medium -> Color.Red
-                        WindowType.Expanded -> Color.Blue
-                    }
+                when (windowSize.width) {
+                    WindowType.Compact -> Color.Black
+                    WindowType.Medium -> Color.Red
+                    WindowType.Expanded -> Color.Blue
+                }
             )
-        }
-    }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val notificationPermissionState = rememberPermissionState(
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+                val context = LocalContext.current
+                OutlinedButton(onClick = {
+                    // Camera permission state
 
-    Column(modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        OutlinedButton(onClick = {
-            val notish = MyNotification(mContext, "FCM", "This is Notification for FCM testing")
-            notish.FirNotification()
-        }) {
-            Text(text = "Fire Notification", fontSize = 16.sp)
+                    if (notificationPermissionState.status.isGranted) {
+                        val notification = MyNotification(mContext,
+                            "Test",
+                            "This is a test notification")
+                        notification.fireNotification()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "You have to first grant notifications permissions in settings !!",
+                            Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                }) {
+                    Text(text = "Fire Notification", fontSize = 16.sp)
+                }
+            }
         }
     }
 }
